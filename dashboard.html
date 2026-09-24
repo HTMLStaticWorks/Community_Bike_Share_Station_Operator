@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rider Dashboard - CycleFlow</title>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Dashboard Specific Styles */
+    body {
+      background-color: var(--c-secondary-bg);
+    }
+
+    .dashboard-layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: var(--nav-height);
+    }
+
+    .dashboard-sidebar {
+      width: 280px;
+      background-color: var(--c-surface);
+      border-right: 1px solid var(--c-border);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: var(--nav-height);
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+      overflow-y: auto;
+      transition: var(--transition-main);
+    }
+
+    @media (max-width: 1024px) {
+      .dashboard-sidebar {
+        left: -100%;
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .dashboard-sidebar.active {
+        left: 0;
+      }
+
+      html[dir="rtl"] .dashboard-sidebar {
+        left: auto;
+        right: -100%;
+      }
+
+      html[dir="rtl"] .dashboard-sidebar.active {
+        right: 0;
+      }
+    }
+
+    .dashboard-main {
+      flex: 1;
+      padding: var(--space-6) var(--space-4);
+      margin-left: 280px;
+      transition: var(--transition-main);
+    }
+
+    @media (max-width: 1024px) {
+      .dashboard-main {
+        margin-left: 0;
+      }
+    }
+
+    html[dir="rtl"] .dashboard-main {
+      margin-left: 0;
+      margin-right: 280px;
+    }
+
+    @media (max-width: 1024px) {
+      html[dir="rtl"] .dashboard-main {
+        margin-right: 0;
+      }
+    }
+
+    .dashboard-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 9;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-main);
+    }
+
+    .dashboard-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dashboard-nav {
+      padding: var(--space-4) 0;
+    }
+
+    .dashboard-nav .nav-link {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-6);
+      color: var(--c-text-muted);
+      border-left: 3px solid transparent;
+      font-weight: var(--weight-label);
+    }
+
+    .dashboard-nav .nav-link:hover,
+    .dashboard-nav .nav-link.active {
+      color: var(--c-primary);
+      background-color: var(--c-primary-light);
+      border-left-color: var(--c-primary);
+    }
+
+    html[dir="rtl"] .dashboard-nav .nav-link {
+      border-left: none;
+      border-right: 3px solid transparent;
+    }
+
+    html[dir="rtl"] .dashboard-nav .nav-link.active {
+      border-right-color: var(--c-primary);
+    }
+
+    .dashboard-nav .nav-link::after {
+      display: none;
+    }
+
+    .dashboard-nav .nav-link i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .dashboard-tab {
+      display: none;
+      animation: fadeInUp 0.4s ease;
+    }
+
+    .dashboard-tab.active {
+      display: block;
+    }
+
+    /* Table Styles */
+    .table-responsive {
+      width: 100%;
+      align-self: stretch;
+      overflow-x: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    html[dir="rtl"] .table {
+      text-align: right;
+    }
+
+    .table th,
+    .table td {
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    .table th {
+      font-weight: var(--weight-label);
+      color: var(--c-text-muted);
+    }
+
+    .table tbody tr {
+      transition: background-color 0.25s, box-shadow 0.25s;
+    }
+
+    .table tbody td {
+      transition: color 0.25s;
+    }
+
+    .table tbody tr:hover {
+      background-color: var(--c-primary-light);
+      box-shadow: inset 3px 0 0 var(--c-primary);
+    }
+
+    html[dir="rtl"] .table tbody tr:hover {
+      box-shadow: inset -3px 0 0 var(--c-primary);
+    }
+
+    .table tbody tr:hover td:nth-child(2) {
+      color: var(--c-primary);
+    }
+
+    .table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Nearby station cards */
+    .station-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+      gap: var(--space-4);
+    }
+
+    .station-card {
+      align-items: stretch;
+      text-align: start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+    }
+
+    .station-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-2);
+    }
+
+    .station-card-head h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .station-card-head .caption {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin: 0;
+    }
+
+    .station-card-head .caption svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .station-status {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      background: var(--c-primary-light);
+      color: var(--c-primary);
+    }
+
+    .station-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .station-status.is-low {
+      background: color-mix(in srgb, var(--c-amber) 18%, transparent);
+      color: #A06A00;
+    }
+
+    [data-theme="dark"] .station-status.is-low {
+      color: var(--c-amber);
+    }
+
+    .station-counts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-2);
+    }
+
+    .station-counts>div {
+      padding: 0.75rem;
+      border-radius: var(--radius-md);
+      background: var(--c-surface-2);
+      border: 1px solid var(--c-border);
+    }
+
+    .station-counts svg {
+      width: 16px;
+      height: 16px;
+      color: var(--c-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .station-counts b {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: var(--weight-h2);
+      line-height: 1.1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .station-counts small {
+      font-size: 0.75rem;
+      color: var(--c-text-muted);
+    }
+
+    .station-bar {
+      display: flex;
+      height: 6px;
+      border-radius: 99px;
+      overflow: hidden;
+      background: var(--c-surface-2);
+      box-shadow: inset 0 0 0 1px var(--c-border);
+    }
+
+    .station-bar span {
+      background: var(--c-primary);
+    }
+
+    .station-bar span.is-ebike {
+      background: color-mix(in srgb, var(--c-primary) 45%, transparent);
+    }
+
+    .station-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-top: auto;
+      font-size: 0.85rem;
+      color: var(--c-text-muted);
+    }
+
+    .station-foot span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .station-foot svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .station-foot .btn {
+      width: auto;
+      padding: 0.55rem 1.1rem;
+      font-size: 0.875rem;
+    }
+
+    /* Stations near you */
+    .near-card {
+      --nm-land: #E7ECE5;
+      --nm-block: #DDE4DA;
+      --nm-street: #FFFFFF;
+      --nm-park: #C9E6C3;
+      --nm-lane: #0E8F5B;
+      padding: 0;
+      overflow: hidden;
+      margin-top: var(--space-4);
+    }
+
+    [data-theme="dark"] .near-card {
+      --nm-land: #0E1613;
+      --nm-block: #121C18;
+      --nm-street: #1D2924;
+      --nm-park: #133322;
+      --nm-lane: #3DDC97;
+    }
+
+    .near-card {
+      align-items: stretch;
+      text-align: start;
+    }
+
+    .near-map {
+      position: relative;
+      height: 220px;
+      width: 100%;
+    }
+
+    .near-list {
+      width: 100%;
+    }
+
+    .near-map svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .nm-land {
+      fill: var(--nm-land);
+    }
+
+    .nm-block {
+      fill: var(--nm-block);
+    }
+
+    .nm-park {
+      fill: var(--nm-park);
+    }
+
+    .nm-street {
+      stroke: var(--nm-street);
+      fill: none;
+      stroke-linecap: round;
+    }
+
+    .nm-lane {
+      stroke: var(--nm-lane);
+      fill: none;
+      stroke-width: 3;
+      stroke-dasharray: 2 7;
+      stroke-linecap: round;
+      opacity: 0.8;
+    }
+
+    .nm-route {
+      stroke: var(--c-primary);
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 1 9;
+    }
+
+    .nm-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 5px 10px;
+      border-radius: var(--radius-full);
+      background: var(--c-primary);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.3);
+      border: 2px solid #fff;
+    }
+
+    .nm-pin svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .nm-pin.is-low {
+      background: var(--c-amber);
+      color: #1a1a1a;
+    }
+
+    .nm-pin.is-main {
+      padding: 7px 13px;
+      font-size: 0.9rem;
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--c-primary) 25%, transparent), 0 8px 20px -4px rgba(0, 0, 0, 0.35);
+    }
+
+    .nm-you {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: #3B82F6;
+      border: 3px solid #fff;
+      box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2);
+    }
+
+    .nm-chip {
+      position: absolute;
+      left: var(--space-3);
+      bottom: var(--space-3);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      background: var(--c-surface);
+      color: var(--c-text-main);
+      font-size: 0.8rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nm-chip svg {
+      width: 14px;
+      height: 14px;
+      color: var(--c-primary);
+    }
+
+    .near-list {
+      list-style: none;
+      margin: 0;
+      padding: var(--space-2);
+    }
+
+    .near-list li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.25s, box-shadow 0.25s, transform 0.25s var(--ease-out);
+    }
+
+    .near-list li:hover {
+      background: var(--c-primary-light);
+      box-shadow: inset 3px 0 0 var(--c-primary);
+      transform: translateX(4px);
+    }
+
+    html[dir="rtl"] .near-list li:hover {
+      box-shadow: inset -3px 0 0 var(--c-primary);
+      transform: translateX(-4px);
+    }
+
+    .near-list li:hover h4 { color: var(--c-primary); }
+
+    .near-list li:hover .near-dot {
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--c-primary) 22%, transparent);
+    }
+
+    .near-list li:hover .near-dot.is-low {
+      box-shadow: 0 0 0 5px color-mix(in srgb, var(--c-amber) 28%, transparent);
+    }
+
+    .near-list li:hover + li,
+    .near-list li + li:hover { border-top-color: transparent; }
+
+    .near-dot, .near-info h4 { transition: box-shadow 0.25s, color 0.25s; }
+
+    .near-list li+li {
+      border-top: 1px solid var(--c-border);
+    }
+
+    .near-list li.is-active {
+      background: var(--c-surface-2);
+    }
+
+    .near-list li.is-active+li {
+      border-top-color: transparent;
+    }
+
+    .near-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--c-primary);
+      flex-shrink: 0;
+    }
+
+    .near-dot.is-low {
+      background: var(--c-amber);
+    }
+
+    .near-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .near-info h4 {
+      margin: 0 0 2px;
+      font-size: 1rem;
+    }
+
+    .near-info .caption {
+      margin: 0;
+    }
+
+    .near-tags {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .near-tags .tag {
+      background: var(--c-secondary-bg);
+      color: var(--c-text-muted);
+      white-space: nowrap;
+    }
+
+    .near-tags .tag-bikes {
+      background: var(--c-primary-light);
+      color: var(--c-primary);
+    }
+
+    .near-tags .tag-low {
+      background: color-mix(in srgb, var(--c-amber) 20%, transparent);
+      color: #9a6a0c;
+    }
+
+    @media (max-width: 600px) {
+      .near-list li {
+        flex-wrap: wrap;
+      }
+
+      .near-tags {
+        width: 100%;
+        padding-left: calc(10px + var(--space-3));
+      }
+    }
+
+    /* Overview top row: ride card wide on desktop, stacked on small screens */
+    .dash-top {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dash-ride {
+      grid-column: span 2;
+    }
+
+    .dashboard-main {
+      min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+      .dash-top {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .dash-ride {
+        grid-column: auto;
+      }
+
+      .dash-head {
+        flex-wrap: wrap;
+        gap: var(--space-3);
+      }
+
+      .dash-head .btn {
+        width: auto;
+      }
+    }
+
+    /* Ride history: stacked cards on phones */
+    @media (max-width: 600px) {
+      .rides-table thead {
+        display: none;
+      }
+
+      .rides-table,
+      .rides-table tbody {
+        display: block;
+        width: 100%;
+      }
+
+      .rides-table tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "date cost" "route route" "dur dur";
+        gap: var(--space-2) var(--space-3);
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--c-border);
+      }
+
+      .rides-table tr:last-child {
+        border-bottom: none;
+      }
+
+      .rides-table td {
+        display: block;
+        padding: 0;
+        border: none;
+        text-align: start;
+      }
+
+      .rides-table td:nth-child(1) {
+        grid-area: date;
+        font-weight: 600;
+      }
+
+      .rides-table td:nth-child(1) br {
+        display: none;
+      }
+
+      .rides-table td:nth-child(1) .caption {
+        font-weight: 400;
+        margin-inline-start: 6px;
+      }
+
+      .rides-table td:nth-child(2) {
+        grid-area: route;
+        position: relative;
+        padding: var(--space-3);
+        padding-inline-start: calc(var(--space-3) + 18px);
+        border-radius: var(--radius-md);
+        background: var(--c-surface-2);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .rides-table td:nth-child(2)>div {
+        position: relative;
+      }
+
+      .rides-table td:nth-child(2)>div::before {
+        content: '';
+        position: absolute;
+        inset-inline-start: -16px;
+        top: 0.45em;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        border: 2px solid var(--c-primary);
+        background: var(--c-surface);
+      }
+
+      .rides-table td:nth-child(2)>div:last-child::before {
+        background: var(--c-primary);
+      }
+
+      .rides-table td:nth-child(2) strong {
+        font-weight: 500;
+        color: var(--c-text-muted);
+        margin-inline-end: 4px;
+      }
+
+      .rides-table td:nth-child(3) {
+        grid-area: dur;
+        font-size: 0.875rem;
+        color: var(--c-text-muted);
+      }
+
+      .rides-table td:nth-child(3)::before {
+        content: 'Duration · ';
+      }
+
+      .rides-table td:nth-child(4) {
+        grid-area: cost;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+        text-align: end;
+      }
+    }
+
+    /* Payment method + billing history on phones */
+    .pay-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pay-info strong {
+      display: block;
+    }
+
+    .pay-btn {
+      flex-shrink: 0;
+      width: auto;
+    }
+
+    @media (max-width: 600px) {
+      .pay-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+      }
+
+      .pay-row .pay-btn {
+        width: 100%;
+        margin-left: 0 !important;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .bills-table thead {
+        display: none;
+      }
+
+      .bills-table,
+      .bills-table tbody {
+        display: block;
+        width: 100%;
+      }
+
+      .bills-table tr {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "desc amount" "date status";
+        gap: 6px var(--space-3);
+        align-items: center;
+        padding: var(--space-4);
+        border-bottom: 1px solid var(--c-border);
+      }
+
+      .bills-table tr:last-child {
+        border-bottom: none;
+      }
+
+      .bills-table td {
+        display: block;
+        padding: 0;
+        border: none;
+      }
+
+      .bills-table td:nth-child(1) {
+        grid-area: date;
+        font-size: 0.85rem;
+        color: var(--c-text-muted);
+      }
+
+      .bills-table td:nth-child(2) {
+        grid-area: desc;
+        font-weight: 600;
+      }
+
+      .bills-table td:nth-child(3) {
+        grid-area: amount;
+        font-weight: 600;
+        text-align: end;
+      }
+
+      .bills-table td:nth-child(4) {
+        grid-area: status;
+        justify-self: end;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="navbar dash-topbar">
+    <div class="dash-topbar-inner">
+      <div class="dash-topbar-brand">
+        <!-- Sidebar Toggle for tablet / mobile -->
+        <button class="icon-btn dash-topbar-btn dashboard-sidebar-toggle" aria-label="Toggle Dashboard Menu">
+          <i data-lucide="menu"></i>
+        </button>
+        <a href="index.html" class="nav-brand">
+          <i data-lucide="bike"></i>
+          <span>CycleFlow</span>
+        </a>
+      </div>
+
+      <div class="dash-topbar-actions">
+        <button class="icon-btn dash-topbar-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+        <button class="icon-btn dash-topbar-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+        <button class="dash-avatar" aria-label="Account"><i data-lucide="user"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <style>
+    .dash-topbar {
+      background-color: var(--c-surface);
+      border-bottom: 1px solid var(--c-border);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    .dash-topbar-inner {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .dash-topbar-brand {
+      width: 280px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding-inline: var(--space-5);
+      background-color: var(--c-surface-2);
+      border-inline-end: 1px solid var(--c-border);
+    }
+    .dash-topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding-inline: var(--space-5);
+    }
+    .dash-topbar .dash-topbar-btn {
+      display: flex;
+      border-color: transparent;
+      color: var(--c-text-muted);
+    }
+    .dash-topbar .dash-topbar-btn:hover { background: var(--c-surface-2); color: var(--c-primary); }
+    .dash-topbar .dashboard-sidebar-toggle { display: none; }
+    .dash-avatar {
+      width: 40px;
+      height: 40px;
+      margin-inline-start: var(--space-2);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--c-primary-light);
+      color: var(--c-primary);
+      border: 1px solid color-mix(in srgb, var(--c-primary) 30%, transparent);
+      cursor: pointer;
+      transition: var(--transition-main);
+    }
+    .dash-avatar svg { width: 18px; height: 18px; }
+    .dash-avatar:hover { background: var(--c-primary); color: var(--c-on-primary); }
+
+    @media (max-width: 1024px) {
+      .dash-topbar-brand {
+        width: auto;
+        padding-inline: var(--space-3);
+        background: transparent;
+        border-inline-end: none;
+      }
+      .dash-topbar .dashboard-sidebar-toggle { display: flex; }
+      .dash-topbar-actions { padding-inline: var(--space-3); gap: 4px; }
+    }
+  </style>
+
+  <div class="dashboard-overlay"></div>
+
+  <div class="dashboard-layout">
+
+    <!-- ================= SIDEBAR ================= -->
+    <aside class="dashboard-sidebar">
+      <div style="padding: var(--space-6); border-bottom: 1px solid var(--c-border);">
+        <p class="caption text-muted">Welcome back,</p>
+        <h4 style="margin: 0;">Jane Doe</h4>
+      </div>
+
+      <nav class="dashboard-nav">
+        <a href="#" class="nav-link active" data-tab="overview">
+          <i data-lucide="layout-dashboard"></i> Overview
+        </a>
+        <a href="#" class="nav-link" data-tab="unlock">
+          <i data-lucide="unlock"></i> Unlock a Bike
+        </a>
+        <a href="#" class="nav-link" data-tab="stations">
+          <i data-lucide="map-pin"></i> Nearby Stations
+        </a>
+        <a href="#" class="nav-link" data-tab="history">
+          <i data-lucide="history"></i> Ride History
+        </a>
+        <a href="#" class="nav-link" data-tab="membership">
+          <i data-lucide="credit-card"></i> Membership Plan
+        </a>
+        <a href="#" class="nav-link" data-tab="billing">
+          <i data-lucide="receipt"></i> Billing History
+        </a>
+        <a href="#" class="nav-link" data-tab="profile">
+          <i data-lucide="user"></i> Profile & Settings
+        </a>
+      </nav>
+
+      <div style="margin-top: auto; padding: var(--space-4);">
+        <a href="#" id="logoutBtn" class="btn btn-outline"
+          style="width: 100%; border-color: var(--c-border); color: var(--c-text-muted);">
+          <i data-lucide="log-out"></i> Logout
+        </a>
+      </div>
+    </aside>
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main class="dashboard-main">
+      <div style="max-width: 1000px; margin: 0 auto;">
+
+        <!-- ================= TAB: OVERVIEW ================= -->
+        <div id="tab-overview" class="dashboard-tab active">
+          <div class="flex justify-between items-center dash-head" style="margin-bottom: var(--space-6);">
+            <h2>Dashboard</h2>
+            <button class="btn btn-primary quick-unlock-btn"><i data-lucide="scan-line"></i> Quick Unlock</button>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 dash-top" style="margin-bottom: var(--space-6);">
+            <!-- Active Ride / Status Card -->
+            <div class="card dash-ride"
+              style="align-items: flex-start; text-align: left; background-color: var(--c-primary); color: white;">
+              <div class="flex justify-between w-100" style="width: 100%; margin-bottom: var(--space-4);">
+                <div class="tag" style="background: rgba(255,255,255,0.2); color: white;">Ready to Ride</div>
+                <i data-lucide="bike" style="width: 32px; height: 32px;"></i>
+              </div>
+              <h3 style="color: white;">No Active Ride</h3>
+              <p style="color: rgba(255,255,255,0.9); margin-bottom: var(--space-4);">Find a station near you to start
+                riding.</p>
+              <button class="btn btn-secondary quick-unlock-btn"
+                style="color: var(--c-primary); margin-top: auto;">Unlock a Bike Now</button>
+            </div>
+
+            <!-- Plan Quick Stats -->
+            <div class="card" style="align-items: flex-start; text-align: left;">
+              <div class="flex items-center gap-2" style="color: var(--c-text-muted); margin-bottom: var(--space-4);">
+                <i data-lucide="credit-card"></i> <span>Current Plan</span>
+              </div>
+              <h4>Monthly Commuter</h4>
+              <div class="flex justify-between w-100"
+                style="width: 100%; margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--c-border);">
+                <span class="caption">Rides this mo: <strong>12</strong></span>
+                <span class="caption">Free mins left: <strong style="color: var(--c-primary);">∞</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <h3>Stations Near You</h3>
+          <div class="near-card card">
+            <div class="near-map" aria-hidden="true">
+              <svg viewBox="0 0 600 220" preserveAspectRatio="xMidYMid slice">
+                <rect class="nm-land" width="600" height="220" />
+                <g class="nm-block">
+                  <rect x="20" y="20" width="120" height="70" rx="8" />
+                  <rect x="170" y="20" width="110" height="70" rx="8" />
+                  <rect x="460" y="20" width="120" height="70" rx="8" />
+                  <rect x="20" y="130" width="120" height="70" rx="8" />
+                  <rect x="310" y="130" width="120" height="70" rx="8" />
+                  <rect x="460" y="130" width="120" height="70" rx="8" />
+                </g>
+                <rect class="nm-park" x="310" y="20" width="120" height="70" rx="14" />
+                <rect class="nm-park" x="170" y="130" width="110" height="70" rx="14" />
+                <g class="nm-street" stroke-width="10">
+                  <path d="M0 110 H600" />
+                  <path d="M155 0 V220" />
+                  <path d="M445 0 V220" />
+                </g>
+                <g class="nm-street" stroke-width="6">
+                  <path d="M295 0 V220" />
+                </g>
+                <path class="nm-lane" d="M0 110 H600" />
+                <path class="nm-route" d="M225 150 C225 110 300 110 360 110 S395 75 370 55" />
+              </svg>
+              <span class="nm-you" style="left: 37.5%; top: 68%;"></span>
+              <span class="nm-pin is-main" style="left: 61.5%; top: 25%;"><i data-lucide="bike"></i> 12</span>
+              <span class="nm-pin" style="left: 13%; top: 30%;">5</span>
+              <span class="nm-pin is-low" style="left: 88%; top: 72%;">2</span>
+              <span class="nm-chip"><i data-lucide="footprints"></i> 0.2 mi · 4 min walk</span>
+            </div>
+
+            <ul class="near-list">
+              <li class="is-active">
+                <span class="near-dot"></span>
+                <div class="near-info">
+                  <h4>Central Park South</h4>
+                  <p class="caption">59th St &amp; 6th Ave · 0.2 mi</p>
+                </div>
+                <div class="near-tags"><span class="tag tag-bikes">12 bikes</span><span class="tag">4 docks</span></div>
+              </li>
+              <li>
+                <span class="near-dot"></span>
+                <div class="near-info">
+                  <h4>Columbus Circle</h4>
+                  <p class="caption">8th Ave &amp; W 58th St · 0.4 mi</p>
+                </div>
+                <div class="near-tags"><span class="tag tag-bikes">5 bikes</span><span class="tag">11 docks</span></div>
+              </li>
+              <li>
+                <span class="near-dot is-low"></span>
+                <div class="near-info">
+                  <h4>Madison &amp; 60th</h4>
+                  <p class="caption">Madison Ave &amp; E 60th St · 0.5 mi</p>
+                </div>
+                <div class="near-tags"><span class="tag tag-low">2 bikes</span><span class="tag">14 docks</span></div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ================= TAB: UNLOCK ================= -->
+        <div id="tab-unlock" class="dashboard-tab">
+          <h2 style="margin-bottom: var(--space-6);">Unlock a Bike</h2>
+
+          <div class="card" style="max-width: 500px; margin: 0 auto; padding: var(--space-8);">
+
+            <div id="unlockStep1">
+              <div class="card-icon" style="margin: 0 auto var(--space-4); width: 80px; height: 80px;"><i
+                  data-lucide="scan-line" style="width: 40px; height: 40px;"></i></div>
+              <h3>Enter Bike Code</h3>
+              <p class="caption" style="margin-bottom: var(--space-6);">Enter the 5-digit code located on the bike's
+                handlebar or scan the QR code.</p>
+
+              <form id="unlockForm">
+                <div class="form-group">
+                  <input type="text" id="bikeCode" class="form-control" placeholder="e.g. A1B2C" maxlength="5"
+                    style="text-align: center; font-size: 1.5rem; letter-spacing: 0.2em; font-family: monospace; text-transform: uppercase;">
+                  <div class="error-message" id="unlockError">Invalid code format. Must be 5 characters.</div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;"><i data-lucide="unlock"></i> Unlock
+                  Bike</button>
+              </form>
+
+              <div class="auth-divider" style="margin: var(--space-6) 0;">OR</div>
+
+              <button class="btn btn-outline" style="width: 100%;"><i data-lucide="camera"></i> Scan QR Code</button>
+            </div>
+
+            <div id="unlockStep2" style="display: none;">
+              <div class="card-icon"
+                style="margin: 0 auto var(--space-4); width: 80px; height: 80px; background: var(--c-primary); color: white;">
+                <i data-lucide="check" style="width: 40px; height: 40px;"></i></div>
+              <h3 style="color: var(--c-primary);">Bike Unlocked!</h3>
+              <p>You have successfully unlocked Bike #A1B2C. Pull the bike firmly from the dock to begin your ride.</p>
+              <div class="flex justify-between items-center"
+                style="margin: var(--space-6) 0; padding: var(--space-4); background: var(--c-secondary-bg); border-radius: var(--radius-sm);">
+                <div>
+                  <div class="caption">Start Time</div>
+                  <strong id="startTimeDisplay">Just now</strong>
+                </div>
+                <div style="text-align: right;">
+                  <div class="caption">Free Time Left</div>
+                  <strong style="color: var(--c-primary);">45:00</strong>
+                </div>
+              </div>
+              <button id="finishRideBtn" class="btn btn-outline" style="width: 100%;">Simulate Dock Return</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= TAB: NEARBY STATIONS ================= -->
+        <div id="tab-stations" class="dashboard-tab">
+          <div class="flex justify-between items-center"
+            style="margin-bottom: var(--space-6); flex-wrap: wrap; gap: var(--space-3);">
+            <h2 style="margin: 0;">Nearby Stations</h2>
+
+          </div>
+
+          <div class="station-cards">
+            <!-- Station 1 -->
+            <article class="card station-card">
+              <div class="station-card-head">
+                <div>
+                  <h3>Union Square</h3>
+                  <p class="caption"><i data-lucide="map-pin"></i> Broadway &amp; E 14th St</p>
+                </div>
+                <span class="station-status">Available</span>
+              </div>
+              <div class="station-counts">
+                <div><i data-lucide="bike"></i><b>9</b><small>Classic</small></div>
+                <div><i data-lucide="zap"></i><b>3</b><small>E-bikes</small></div>
+                <div><i data-lucide="circle-parking"></i><b>8</b><small>Open docks</small></div>
+              </div>
+              <div class="station-bar" aria-hidden="true"><span style="width: 45%;"></span><span class="is-ebike"
+                  style="width: 15%;"></span></div>
+              <div class="station-foot">
+                <span><i data-lucide="footprints"></i> 3 min walk · 0.2 mi</span>
+                <button type="button" class="btn btn-primary quick-unlock-btn">Unlock</button>
+              </div>
+            </article>
+
+            <!-- Station 2 -->
+            <article class="card station-card">
+              <div class="station-card-head">
+                <div>
+                  <h3>Central Park South</h3>
+                  <p class="caption"><i data-lucide="map-pin"></i> 59th St &amp; 6th Ave</p>
+                </div>
+                <span class="station-status">Available</span>
+              </div>
+              <div class="station-counts">
+                <div><i data-lucide="bike"></i><b>12</b><small>Classic</small></div>
+                <div><i data-lucide="zap"></i><b>4</b><small>E-bikes</small></div>
+                <div><i data-lucide="circle-parking"></i><b>4</b><small>Open docks</small></div>
+              </div>
+              <div class="station-bar" aria-hidden="true"><span style="width: 60%;"></span><span class="is-ebike"
+                  style="width: 20%;"></span></div>
+              <div class="station-foot">
+                <span><i data-lucide="footprints"></i> 8 min walk · 0.4 mi</span>
+                <button type="button" class="btn btn-primary quick-unlock-btn">Unlock</button>
+              </div>
+            </article>
+
+            <!-- Station 3 -->
+            <article class="card station-card">
+              <div class="station-card-head">
+                <div>
+                  <h3>Tribeca Hub</h3>
+                  <p class="caption"><i data-lucide="map-pin"></i> Greenwich St &amp; Chambers St</p>
+                </div>
+                <span class="station-status is-low">Low</span>
+              </div>
+              <div class="station-counts">
+                <div><i data-lucide="bike"></i><b>2</b><small>Classic</small></div>
+                <div><i data-lucide="zap"></i><b>1</b><small>E-bikes</small></div>
+                <div><i data-lucide="circle-parking"></i><b>13</b><small>Open docks</small></div>
+              </div>
+              <div class="station-bar" aria-hidden="true"><span style="width: 12%;"></span><span class="is-ebike"
+                  style="width: 7%;"></span></div>
+              <div class="station-foot">
+                <span><i data-lucide="footprints"></i> 14 min walk · 0.7 mi</span>
+                <button type="button" class="btn btn-primary quick-unlock-btn">Unlock</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- ================= TAB: HISTORY ================= -->
+        <div id="tab-history" class="dashboard-tab">
+          <h2 style="margin-bottom: var(--space-6);">Ride History</h2>
+
+          <div class="card" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="table rides-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Route</th>
+                    <th>Duration</th>
+                    <th>Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sep 21, 2026<br><span class="caption">08:45 AM</span></td>
+                    <td>
+                      <div><strong>Start:</strong> Central Park South</div>
+                      <div><strong>End:</strong> Union Square</div>
+                    </td>
+                    <td>22 mins</td>
+                    <td>$0.00 <span class="tag" style="font-size: 0.6rem; padding: 2px 6px;">Included</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sep 20, 2026<br><span class="caption">06:15 PM</span></td>
+                    <td>
+                      <div><strong>Start:</strong> Union Square</div>
+                      <div><strong>End:</strong> Tribeca Hub</div>
+                    </td>
+                    <td>18 mins</td>
+                    <td>$0.00 <span class="tag" style="font-size: 0.6rem; padding: 2px 6px;">Included</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sep 18, 2026<br><span class="caption">09:10 AM</span></td>
+                    <td>
+                      <div><strong>Start:</strong> Washington Sq Park</div>
+                      <div><strong>End:</strong> Battery Park City</div>
+                    </td>
+                    <td>52 mins</td>
+                    <td>$1.05 <span class="tag"
+                        style="font-size: 0.6rem; padding: 2px 6px; background: var(--c-border); color: var(--c-text-main);">Overage</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: MEMBERSHIP ================= -->
+        <div id="tab-membership" class="dashboard-tab">
+          <h2 style="margin-bottom: var(--space-6);">Membership Plan</h2>
+
+          <div class="grid grid-cols-2 gap-6 items-start">
+            <div class="card" style="align-items: flex-start; text-align: left;">
+              <div class="tag" style="margin-bottom: var(--space-4);">Active Plan</div>
+              <h3>Monthly Commuter</h3>
+              <div style="font-size: 2.5rem; font-weight: bold; margin: var(--space-2) 0;">$18<span
+                  style="font-size: 1rem; font-weight: normal; color: var(--c-text-muted);">/month</span></div>
+              <p class="caption" style="margin-bottom: var(--space-4);">Renews automatically on Oct 1, 2026.</p>
+
+              <ul style="display: flex; flex-direction: column; gap: 8px; margin-bottom: var(--space-6);">
+                <li class="flex gap-2 items-center"><i data-lucide="check"
+                    style="color: var(--c-primary); width:16px;"></i> Unlimited 45-min rides</li>
+                <li class="flex gap-2 items-center"><i data-lucide="check"
+                    style="color: var(--c-primary); width:16px;"></i> $0 unlock fees</li>
+              </ul>
+
+              <div class="flex gap-2 w-100" style="width: 100%;">
+                <button class="btn btn-outline" style="flex:1;">Cancel Plan</button>
+              </div>
+            </div>
+
+            <div class="card"
+              style="align-items: flex-start; text-align: left; background: var(--c-primary-light); border: 1px solid var(--c-primary);">
+              <div class="flex justify-between w-100" style="width:100%;">
+                <div class="tag" style="background: var(--c-primary); color: white; margin-bottom: var(--space-4);">
+                  Upgrade</div>
+                <i data-lucide="star" style="color: var(--c-primary);"></i>
+              </div>
+              <h3>Annual Pass</h3>
+              <div style="font-size: 2.5rem; font-weight: bold; margin: var(--space-2) 0;">$150<span
+                  style="font-size: 1rem; font-weight: normal; color: var(--c-text-muted);">/year</span></div>
+              <p>Save $66 annually and get extended 60-minute free ride time on every trip.</p>
+              <button class="btn btn-primary" style="margin-top: auto; width: 100%;">Upgrade to Annual</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: BILLING ================= -->
+        <div id="tab-billing" class="dashboard-tab">
+          <h2 style="margin-bottom: var(--space-6);">Billing History</h2>
+
+          <div class="card" style="align-items: flex-start; text-align: left; margin-bottom: var(--space-6);">
+            <h4>Payment Method</h4>
+            <div class="flex items-center gap-4 pay-row"
+              style="margin-top: var(--space-4); padding: var(--space-3); border: 1px solid var(--c-border); border-radius: var(--radius-sm); width: 100%;">
+              <div
+                style="width: 48px; height: 32px; background: #1a1f36; color: white; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-style: italic;">
+                VISA</div>
+              <div class="pay-info">
+                <strong>Visa ending in 4242</strong>
+                <div class="caption">Expires 12/28</div>
+              </div>
+              <button class="btn btn-outline pay-btn" style="margin-left: auto; padding: 0.5rem 1rem;">Update</button>
+            </div>
+          </div>
+
+          <div class="card" style="padding: 0;">
+            <div class="table-responsive">
+              <table class="table bills-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sep 01, 2026</td>
+                    <td>Monthly Commuter Subscription</td>
+                    <td>$18.00</td>
+                    <td><span class="tag"
+                        style="background: var(--c-primary-light); color: var(--c-primary);">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sep 18, 2026</td>
+                    <td>Overage Fee (Ride #982)</td>
+                    <td>$1.05</td>
+                    <td><span class="tag"
+                        style="background: var(--c-primary-light); color: var(--c-primary);">Paid</span></td>
+                  </tr>
+                  <tr>
+                    <td>Aug 01, 2026</td>
+                    <td>Monthly Commuter Subscription</td>
+                    <td>$18.00</td>
+                    <td><span class="tag"
+                        style="background: var(--c-primary-light); color: var(--c-primary);">Paid</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= TAB: PROFILE ================= -->
+        <div id="tab-profile" class="dashboard-tab">
+          <h2 style="margin-bottom: var(--space-6);">Profile & Settings</h2>
+
+          <div class="card" style="align-items: flex-start; text-align: left; max-width: 600px;">
+            <form style="width: 100%;">
+              <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" value="Jane Doe">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" class="form-control" value="jane@example.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" value="+1 (555) 123-4567">
+              </div>
+
+              <hr style="border: none; border-top: 1px solid var(--c-border); margin: var(--space-6) 0;">
+
+              <h4>Preferences</h4>
+              <div class="checkbox-group" style="margin-top: var(--space-4);">
+                <input type="checkbox" id="pref1" checked>
+                <label for="pref1">Receive ride receipts via email</label>
+              </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="pref2" checked>
+                <label for="pref2">Receive promotional offers</label>
+              </div>
+
+              <button type="button" class="btn btn-primary" style="margin-top: var(--space-4);">Save Changes</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/dashboard.js"></script>
+</body>
+
+</html>

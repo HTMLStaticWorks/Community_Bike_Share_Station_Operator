@@ -1,0 +1,83 @@
+/* ==========================================================================
+   RTL OVERRIDES
+   ========================================================================== */
+html[dir="rtl"], .rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Typography Overrides */
+html[dir="rtl"] .text-center {
+  text-align: center;
+}
+
+html[dir="rtl"] .form-group {
+  text-align: right;
+}
+
+/* Icons/Buttons */
+html[dir="rtl"] .btn {
+  /* No overrides needed if gap is used, but for margin-right/left we'd flip them */
+}
+
+html[dir="rtl"] .nav-brand {
+  /* gap handles flex spacing natively in RTL */
+}
+
+/* Hamburger Drawer Overrides */
+html[dir="rtl"] .drawer {
+  right: auto;
+  left: -100%;
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+html[dir="rtl"] .drawer.active {
+  left: 0;
+  right: auto;
+}
+
+/* Dashboard Sidebar / Map Sidebar Overrides */
+html[dir="rtl"] .dashboard-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--c-border);
+}
+
+html[dir="rtl"] .map-sidebar {
+  border-right: none;
+  border-left: 1px solid var(--c-border);
+}
+
+html[dir="rtl"] .dashboard-main,
+html[dir="rtl"] .map-container {
+  /* Ensure flex direction works */
+}
+
+/* Utilities */
+html[dir="rtl"] .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+html[dir="rtl"] .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+html[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: var(--space-4);
+}
+
+html[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: var(--space-4);
+}
+
+/* Forms */
+html[dir="rtl"] .checkbox-group {
+  /* Flex gap handles RTL spacing automatically in modern browsers */
+}
+
+html[dir="rtl"] .checkbox-group input {
+  /* Reset margins if any specific side margin was applied */
+}

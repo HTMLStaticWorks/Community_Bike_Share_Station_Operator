@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works - CycleFlow</title>
+  <meta name="description" content="Learn how easy it is to use CycleFlow. Find, unlock, ride, and return.">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Timeline with image cards */
+    .hiw-timeline {
+      position: relative;
+      max-width: 1040px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+    .hiw-timeline::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      bottom: 28px;
+      inset-inline-start: 27px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--c-primary), color-mix(in srgb, var(--c-primary) 10%, transparent));
+      opacity: 0.35;
+    }
+    .hiw-step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+    .hiw-node {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: var(--c-primary);
+      color: var(--c-on-primary);
+      box-shadow: 0 0 0 6px var(--c-bg), 0 10px 24px -10px color-mix(in srgb, var(--c-primary) 80%, transparent);
+    }
+    .hiw-node svg { width: 24px; height: 24px; }
+    .hiw-card {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      overflow: hidden;
+      border-radius: var(--radius-lg);
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s;
+    }
+    .hiw-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--c-border-strong);
+    }
+    .hiw-body {
+      padding: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hiw-num {
+      font-size: 0.75rem;
+      font-weight: var(--weight-label);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-primary);
+      margin-bottom: var(--space-2);
+    }
+    .hiw-body p { color: var(--c-text-muted); }
+    .hiw-points {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: var(--space-2);
+      font-size: 0.925rem;
+    }
+    .hiw-points li { display: flex; align-items: center; gap: 0.5rem; }
+    .hiw-points svg { width: 16px; height: 16px; color: var(--c-primary); flex-shrink: 0; }
+    .hiw-media {
+      position: relative;
+      min-height: 260px;
+      overflow: hidden;
+    }
+    .hiw-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1s var(--ease-out);
+    }
+    .hiw-card:hover .hiw-media img { transform: scale(1.05); }
+
+    /* Good to know */
+    .hiw-tips {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      gap: var(--space-3);
+      align-items: stretch;
+    }
+    .hiw-tips-head {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hiw-tips-head h2 { font-size: clamp(1.75rem, 1.5vw + 1rem, 2.4rem); margin: 0; }
+    .hiw-tip {
+      padding: var(--space-4);
+      border-radius: var(--radius-lg);
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+    }
+    .hiw-tip .card-icon { width: 44px; height: 44px; border-radius: 12px; margin: 0 auto var(--space-3); }
+    .hiw-tip, .hiw-tips-head { text-align: center; }
+    .hiw-tips-head { align-items: center; }
+    .hiw-tip .card-icon svg { width: 20px; height: 20px; }
+    .hiw-tip p { font-size: 0.925rem; color: var(--c-text-muted); }
+
+    @media (max-width: 1024px) {
+      .hiw-tips { grid-template-columns: repeat(3, 1fr); }
+      .hiw-tips-head { grid-column: 1 / -1; margin-bottom: var(--space-2); }
+    }
+    @media (max-width: 768px) {
+      .hiw-timeline::before { display: none; }
+      .hiw-step { grid-template-columns: 1fr; gap: var(--space-3); }
+      .hiw-card { grid-template-columns: 1fr; }
+      .hiw-media { order: -1; min-height: 200px; }
+      .hiw-body { padding: var(--space-4); }
+      .hiw-tips { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .hiw-tip { grid-column: span 2; }
+      .hiw-tip:last-child { grid-column: 2 / span 2; }
+    }
+    @media (max-width: 600px) {
+      .hiw-tips { grid-template-columns: 1fr; }
+      .hiw-tip, .hiw-tip:last-child { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="home2.html" class="nav-link">Home 2</a>
+        <a href="how-it-works.html" class="nav-link active">How It Works</a>
+        <a href="station-map.html" class="nav-link">Station Map</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </nav>
+      
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+        <a href="login.html" class="btn btn-primary nav-login-link">Login</a>
+        <div class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </div>
+      <button class="drawer-close" aria-label="Close menu"><i data-lucide="x"></i></button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="home2.html" class="nav-link">Home 2</a>
+      <a href="how-it-works.html" class="nav-link active">How It Works</a>
+      <a href="station-map.html" class="nav-link">Station Map</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+      <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+      <a href="login.html" class="btn btn-primary drawer-login">Login</a>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main>
+    
+    <section class="page-hero">
+      <div class="container animate-fade-up">
+        <div class="page-hero-pill"><i data-lucide="timer"></i> <span><b>3 simple steps</b> · ride in under 2 minutes</span></div>
+        <h1>Your city, <span class="serif">unlocked</span> in minutes.</h1>
+        <p class="lead">Getting from point A to B has never been this simple. Follow these steps to start your first ride.</p>
+      </div>
+    </section>
+
+    <!-- TIMELINE FLOW -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Step by step</span>
+          <h2>From sign-up to <span class="serif">first ride</span></h2>
+          <p>Three steps, a few minutes, and you're rolling.</p>
+        </div>
+
+        <div class="hiw-timeline">
+
+          <!-- Step 1 -->
+          <article class="hiw-step animate-fade-up">
+            <div class="hiw-node"><i data-lucide="user-plus"></i></div>
+            <div class="hiw-card">
+              <div class="hiw-body">
+                <span class="hiw-num">Step 01</span>
+                <h3>Sign up &amp; find a station</h3>
+                <p>Create your CycleFlow account in seconds and pick pay-as-you-go or an unlimited pass. Then open the live station map to see bikes and open docks near you.</p>
+                <ul class="hiw-points">
+                  <li><i data-lucide="check"></i> Account ready in under a minute</li>
+                  <li><i data-lucide="check"></i> Real-time bike &amp; dock availability</li>
+                </ul>
+              </div>
+              <div class="hiw-media">
+                <img src="https://images.unsplash.com/photo-1520625471617-e8fa3910c2fc?auto=format&fit=crop&w=900&q=80" alt="Rider checking the CycleFlow app" loading="lazy">
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 2 -->
+          <article class="hiw-step animate-fade-up delay-100">
+            <div class="hiw-node"><i data-lucide="scan-line"></i></div>
+            <div class="hiw-card">
+              <div class="hiw-body">
+                <span class="hiw-num">Step 02</span>
+                <h3>Scan, unlock &amp; ride</h3>
+                <p>At the station, scan the QR code or enter the 5-digit bike code in your dashboard. Adjust the seat, then take the scenic route or the fast lane.</p>
+                <ul class="hiw-points">
+                  <li><i data-lucide="check"></i> Unlocks in about 3 seconds</li>
+                  <li><i data-lucide="check"></i> Classic bikes and e-bikes available</li>
+                </ul>
+              </div>
+              <div class="hiw-media">
+                <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=900&q=80" alt="Cyclist riding through the city" loading="lazy">
+              </div>
+            </div>
+          </article>
+
+          <!-- Step 3 -->
+          <article class="hiw-step animate-fade-up delay-200">
+            <div class="hiw-node"><i data-lucide="credit-card"></i></div>
+            <div class="hiw-card">
+              <div class="hiw-body">
+                <span class="hiw-num">Step 03</span>
+                <h3>Return &amp; auto-bill</h3>
+                <p>Push the bike firmly into any empty dock. Wait for the green light and beep. Your ride ends and billing happens automatically.</p>
+                <ul class="hiw-points">
+                  <li><i data-lucide="check"></i> Dock at any of 200+ stations</li>
+                  <li><i data-lucide="check"></i> Receipt sent to your dashboard</li>
+                </ul>
+              </div>
+              <div class="hiw-media">
+                <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?auto=format&fit=crop&w=900&q=80" alt="Bikes docked at a CycleFlow station" loading="lazy">
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- GOOD TO KNOW -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="hiw-tips animate-fade-up">
+          <div class="hiw-tips-head">
+            <span class="eyebrow">Good to know</span>
+            <h2>Ride smart, <span class="serif">ride safe</span></h2>
+          </div>
+          <div class="hiw-tip">
+            <div class="card-icon"><i data-lucide="hard-hat"></i></div>
+            <h4>Wear a helmet</h4>
+            <p>Always recommended, and required for riders under 18.</p>
+          </div>
+          <div class="hiw-tip">
+            <div class="card-icon"><i data-lucide="timer"></i></div>
+            <h4>45-minute rides</h4>
+            <p>Most plans include unlimited 45-minute trips at no extra cost.</p>
+          </div>
+          <div class="hiw-tip">
+            <div class="card-icon"><i data-lucide="headphones"></i></div>
+            <h4>24/7 support</h4>
+            <p>Stuck or unsure? Our rider team answers any time, day or night.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section section-bg">
+      <div class="container animate-fade-up">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+          <p>Common questions about riding with CycleFlow.</p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-6" style="max-width: 900px; margin: 0 auto;">
+          <div class="card" style="align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2);">What if the station is full?</h4>
+            <p class="caption">If you arrive at a full station, you can request an extra 15 minutes of free ride time via your dashboard to get to the nearest open station.</p>
+          </div>
+          <div class="card" style="align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2);">How do I report a damaged bike?</h4>
+            <p class="caption">Before undocking or immediately after, hit the "Report Issue" button in your active ride dashboard. You will not be charged if reported within 3 minutes.</p>
+          </div>
+          <div class="card" style="align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2);">How long can I keep the bike?</h4>
+            <p class="caption">Most plans include unlimited 45-minute rides. Keeping the bike out longer incurs overage fees to ensure bikes remain available for everyone.</p>
+          </div>
+          <div class="card" style="align-items: flex-start; text-align: left;">
+            <h4 style="margin-bottom: var(--space-2);">Can I pause my ride?</h4>
+            <p class="caption">Currently, you cannot pause a ride while keeping the bike out. You must dock the bike to end your session, but you can instantly unlock another one.</p>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-photo animate-fade-up">
+          <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?auto=format&fit=crop&w=1920&q=80" alt="" loading="lazy">
+          <span class="eyebrow" style="color: var(--c-primary-bright);">Three steps. That's it.</span>
+          <h2>Your first ride is <span class="serif hl-accent">minutes away.</span></h2>
+          <p class="lead">Sign up, find a station near you and unlock a bike today. No lock fees, no long-term commitment.</p>
+          <div class="cta-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">Get Started <i data-lucide="arrow-right" class="btn-arrow"></i></a>
+            <a href="station-map.html" class="btn btn-glass btn-lg"><i data-lucide="map"></i> Find a Station</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <!-- Footer content identical to index -->
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-4); display: inline-flex;">
+            <i data-lucide="bike"></i>
+            <span>CycleFlow</span>
+          </a>
+          <p class="caption">Empowering urban communities with sustainable, accessible, and affordable micromobility solutions. Join the movement towards greener cities.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="station-map.html">Station Map</a>
+            <a href="pricing.html">Pricing Plans</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Rider Agreement</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l6.5 8.6L4.3 20h1.6l5.3-6.1L15.8 20H20l-6.9-9.1L18.9 4h-1.6l-4.9 5.6L8.2 4z" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        &copy; 2026 CycleFlow Operator. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

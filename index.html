@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CycleFlow - Urban Community Bike Share</title>
+  <meta name="description"
+    content="CycleFlow is your convenient, clean, and green urban mobility solution. Find a bike, ride, and explore your city sustainably.">
+  <meta name="theme-color" content="#0B1411">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CycleFlow",
+    "url": "https://cycleflow.com",
+    "logo": "https://cycleflow.com/logo.png",
+    "description": "Urban Community Bike Share Station Operator."
+  }
+  </script>
+</head>
+
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="home2.html" class="nav-link">Home 2</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="station-map.html" class="nav-link">Station Map</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle theme">
+          <i data-lucide="moon"></i>
+        </button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+          <i data-lucide="arrow-left-right"></i>
+        </button>
+
+        <a href="login.html" class="btn btn-primary nav-login-link">Login</a>
+
+        <div class="hamburger" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MOBILE DRAWER ================= -->
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </div>
+      <button class="drawer-close" aria-label="Close menu">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="home2.html" class="nav-link">Home 2</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="station-map.html" class="nav-link">Station Map</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="icon-btn theme-toggle" aria-label="Toggle theme">
+        <i data-lucide="moon"></i>
+      </button>
+      <button class="icon-btn rtl-toggle" aria-label="Toggle RTL">
+        <i data-lucide="arrow-left-right"></i>
+      </button>
+      <a href="login.html" class="btn btn-primary drawer-login">Login</a>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-shell">
+        <img class="hero-bg"
+          src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=2000&q=80"
+          alt="Cyclist riding through the city">
+        <div class="hero-scrim"></div>
+
+        <div class="container hero-inner">
+          <div class="hero-copy animate-fade-up">
+            <div class="hero-pill"><span class="live-dot"></span> <span><strong>1,284 bikes</strong> available right
+                now</span></div>
+            <h1 class="hero-title">Flow through the city, <span class="serif">effortlessly.</span></h1>
+            <p class="hero-lead">Grab a bike from any of our 200+ smart stations. Unlock in seconds, ride anywhere, dock
+              at any open spot. Built for the way cities actually move.</p>
+            <div class="hero-ctas">
+              <a href="station-map.html" class="btn btn-primary btn-lg">Find a Station <i data-lucide="arrow-right"
+                  class="btn-arrow"></i></a>
+              <a href="#calculator" class="btn btn-glass btn-lg"><i data-lucide="calculator"></i> Estimate My Cost</a>
+            </div>
+
+            <div class="hero-stats">
+              <div>
+                <div class="hero-stat-value">200+</div>
+                <div class="hero-stat-label">Smart stations</div>
+              </div>
+              <div>
+                <div class="hero-stat-value">15k</div>
+                <div class="hero-stat-label">Daily riders</div>
+              </div>
+              <div>
+                <div class="hero-stat-value">2M lbs</div>
+                <div class="hero-stat-label">CO₂ prevented</div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-widget glass animate-fade-up delay-200" aria-label="Nearest station preview">
+            <div class="widget-head">
+              <span class="widget-label">Nearest station</span>
+              <span class="widget-live"><span class="live-dot"></span> Live</span>
+            </div>
+            <div class="widget-station">Union Square</div>
+            <div class="widget-sub">Broadway &amp; E 14th St · 3 min walk</div>
+
+            <div class="dock-bar" aria-hidden="true">
+              <span class="is-bike" style="animation-delay:.05s"></span><span class="is-bike"
+                style="animation-delay:.08s"></span><span class="is-bike" style="animation-delay:.11s"></span><span
+                class="is-bike" style="animation-delay:.14s"></span><span class="is-bike"
+                style="animation-delay:.17s"></span><span class="is-bike" style="animation-delay:.2s"></span><span
+                class="is-bike" style="animation-delay:.23s"></span><span class="is-bike"
+                style="animation-delay:.26s"></span><span class="is-bike" style="animation-delay:.29s"></span><span
+                class="is-ebike" style="animation-delay:.32s"></span><span class="is-ebike"
+                style="animation-delay:.35s"></span><span class="is-ebike" style="animation-delay:.38s"></span><span
+                style="animation-delay:.41s"></span><span style="animation-delay:.44s"></span><span
+                style="animation-delay:.47s"></span><span style="animation-delay:.5s"></span><span
+                style="animation-delay:.53s"></span><span style="animation-delay:.56s"></span><span
+                style="animation-delay:.59s"></span><span style="animation-delay:.62s"></span>
+            </div>
+
+            <div class="widget-rows">
+              <div class="widget-row"><b>9</b><small>Classic</small></div>
+              <div class="widget-row"><b>3</b><small>E-bikes</small></div>
+              <div class="widget-row"><b>8</b><small>Open docks</small></div>
+            </div>
+
+            <div class="widget-foot">
+              <span>Updated just now</span>
+              <a href="station-map.html">Open map <i data-lucide="arrow-up-right"></i></a>
+            </div>
+
+            <div class="hero-chip">
+              <div class="chip-icon"><i data-lucide="leaf"></i></div>
+              <div>
+                <b>1.8 lbs CO₂ saved</b>
+                <small>on your last ride</small>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item"><i data-lucide="zap"></i> Unlock in 3 seconds</span>
+        <span class="marquee-item"><i data-lucide="leaf"></i> Carbon-neutral fleet</span>
+        <span class="marquee-item"><i data-lucide="battery-charging"></i> E-bikes on every plan</span>
+        <span class="marquee-item"><i data-lucide="train-front"></i> Transit-connected docks</span>
+        <span class="marquee-item"><i data-lucide="headphones"></i> 24/7 rider support</span>
+        <span class="marquee-item"><i data-lucide="shield-check"></i> Serviced every 48 hours</span>
+        <span class="marquee-item"><i data-lucide="zap"></i> Unlock in 3 seconds</span>
+        <span class="marquee-item"><i data-lucide="leaf"></i> Carbon-neutral fleet</span>
+        <span class="marquee-item"><i data-lucide="battery-charging"></i> E-bikes on every plan</span>
+        <span class="marquee-item"><i data-lucide="train-front"></i> Transit-connected docks</span>
+        <span class="marquee-item"><i data-lucide="headphones"></i> 24/7 rider support</span>
+        <span class="marquee-item"><i data-lucide="shield-check"></i> Serviced every 48 hours</span>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS PREVIEW -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">How it works</span>
+          <h2>Ride in three <span class="serif">simple</span> steps</h2>
+          <p>Get moving across the city in seconds, without the hassle of ownership.</p>
+        </div>
+
+        <div class="steps-grid">
+          <article class="step-card animate-fade-up">
+            <img class="step-img"
+              src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=700&q=80"
+              alt="Rider scanning a QR code with a phone" loading="lazy">
+            <div class="step-top">
+              <div class="card-icon"><i data-lucide="smartphone-nfc"></i></div>
+              <span class="step-num">01</span>
+            </div>
+            <h3>Unlock</h3>
+            <p>Scan the station QR code in the CycleFlow web app, or enter the 5-digit bike ID.</p>
+          </article>
+          <article class="step-card animate-fade-up delay-100">
+            <img class="step-img"
+              src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=700&q=80"
+              alt="Bike ready to ride on a city street" loading="lazy">
+            <div class="step-top">
+              <div class="card-icon"><i data-lucide="bike"></i></div>
+              <span class="step-num">02</span>
+            </div>
+            <h3>Ride</h3>
+            <p>Enjoy a smooth, eco-friendly ride on protected lanes across the city network.</p>
+          </article>
+          <article class="step-card animate-fade-up delay-200">
+            <img class="step-img"
+              src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=700&q=80"
+              alt="Bike parked at a docking spot" loading="lazy">
+            <div class="step-top">
+              <div class="card-icon"><i data-lucide="map-pin"></i></div>
+              <span class="step-num">03</span>
+            </div>
+            <h3>Return</h3>
+            <p>Dock at any open CycleFlow station. Your trip ends and billing happens automatically.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE: RIDE COST & IMPACT CALCULATOR -->
+    <section class="section section-bg" id="calculator">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Plan finder</span>
+          <h2>What will your city <span class="serif">really</span> cost you?</h2>
+          <p>Tell us how you ride. We'll find the cheapest plan and show what you save compared with the alternative.
+          </p>
+        </div>
+
+        <div class="calc animate-fade-up delay-100">
+          <!-- Controls -->
+          <div class="calc-controls">
+            <div>
+              <div class="calc-block-label">Quick presets</div>
+              <div class="chip-row" role="group" aria-label="Rider presets">
+                <button class="chip" type="button" data-preset="2,25"><i data-lucide="coffee"></i> Weekend
+                  explorer</button>
+                <button class="chip is-active" type="button" data-preset="8,20"><i data-lucide="briefcase"></i> Daily
+                  commuter</button>
+                <button class="chip" type="button" data-preset="14,35"><i data-lucide="flame"></i> Car-free
+                  life</button>
+              </div>
+            </div>
+
+            <div class="range-field">
+              <div class="range-head">
+                <label for="ridesRange">Rides per week</label>
+                <div class="range-value"><span id="ridesOut">8</span><small>rides</small></div>
+              </div>
+              <input type="range" class="range" id="ridesRange" min="1" max="20" step="1" value="8">
+              <div class="range-scale"><span>1</span><span>10</span><span>20</span></div>
+            </div>
+
+            <div class="range-field">
+              <div class="range-head">
+                <label for="minsRange">Average ride length</label>
+                <div class="range-value"><span id="minsOut">20</span><small>min</small></div>
+              </div>
+              <input type="range" class="range" id="minsRange" min="5" max="90" step="5" value="20">
+              <div class="range-scale"><span>5 min</span><span>45 min</span><span>90 min</span></div>
+            </div>
+
+            <div>
+              <div class="calc-block-label">Compare against</div>
+              <div class="segmented" role="group" aria-label="Compare against">
+                <button type="button" class="is-active" data-compare="car"><i data-lucide="car"></i> Driving</button>
+                <button type="button" data-compare="rideshare"><i data-lucide="car-taxi-front"></i> Rideshare</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="calc-results" aria-live="polite">
+            <div>
+              <div class="calc-block-label">Your best plan</div>
+              <div class="best-plan">
+                <div>
+                  <span class="best-badge"><i data-lucide="sparkles" style="width:12px;height:12px"></i> Best
+                    value</span>
+                  <div class="best-name" id="bestName">Annual Pass</div>
+                </div>
+                <div class="best-price"><span id="bestPrice">$12.50</span><small>/mo</small></div>
+              </div>
+            </div>
+
+            <div class="plan-bars" id="planBars">
+              <div class="plan-bar" data-plan="payg">
+                <div class="plan-bar-head"><span>Pay-As-You-Go</span><b data-cost>$0</b></div>
+                <div class="plan-bar-track">
+                  <div class="plan-bar-fill"></div>
+                </div>
+              </div>
+              <div class="plan-bar" data-plan="monthly">
+                <div class="plan-bar-head"><span>Monthly Commuter</span><b data-cost>$0</b></div>
+                <div class="plan-bar-track">
+                  <div class="plan-bar-fill"></div>
+                </div>
+              </div>
+              <div class="plan-bar" data-plan="annual">
+                <div class="plan-bar-head"><span>Annual Pass</span><b data-cost>$0</b></div>
+                <div class="plan-bar-track">
+                  <div class="plan-bar-fill"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="savings-line">
+              <i data-lucide="piggy-bank"></i>
+              <span>You'd save <b id="savings">$0</b> a month compared with <span
+                  id="compareLabel">driving</span>.</span>
+            </div>
+
+            <div class="impact-row">
+              <div class="impact-cell">
+                <i data-lucide="leaf"></i>
+                <b id="co2Out">0</b>
+                <small>lbs CO₂ saved / mo</small>
+              </div>
+              <div class="impact-cell">
+                <i data-lucide="route"></i>
+                <b id="milesOut">0</b>
+                <small>miles / month</small>
+              </div>
+              <div class="impact-cell">
+                <i data-lucide="flame"></i>
+                <b id="calOut">0</b>
+                <small>kcal burned / mo</small>
+              </div>
+            </div>
+
+            <div class="calc-cta">
+              <p class="calc-note">Estimates assume 7.5 mph average speed, $0.67/mi driving cost + $4 parking per trip,
+                and 0.89 lbs CO₂ per car mile.</p>
+              <a href="register.html" class="btn btn-primary" id="calcCta">Start riding <i data-lucide="arrow-right"
+                  class="btn-arrow"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ECO IMPACT BENTO -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Our impact</span>
+          <h2>Impact the city, <span class="serif">not</span> the environment</h2>
+          <p>Every ride reduces congestion and lowers carbon emissions in our neighborhoods.</p>
+        </div>
+
+        <div class="bento">
+          <div class="bento-tile bento-image animate-fade-up">
+            <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?auto=format&fit=crop&w=1200&q=80"
+              alt="Cyclist riding along an open road" loading="lazy">
+            <div class="bento-image-copy">
+              <span class="tag bento-badge">Community-first</span>
+              <h3>Cleaner air, quieter streets, closer neighbors.</h3>
+
+            </div>
+          </div>
+
+          <div class="bento-tile bento-green animate-fade-up delay-100">
+            <div class="bento-icon"><i data-lucide="leaf"></i></div>
+            <div>
+              <div class="bento-stat"><span data-count="2" data-suffix="M+"></span></div>
+              <div class="bento-label">Pounds of CO₂ kept out of the air</div>
+            </div>
+          </div>
+
+          <div class="bento-tile animate-fade-up delay-200">
+            <div class="bento-icon"><i data-lucide="users"></i></div>
+            <div>
+              <div class="bento-stat"><span data-count="15" data-suffix="k+"></span></div>
+              <div class="bento-label">Active daily riders</div>
+            </div>
+          </div>
+
+          <div class="bento-tile animate-fade-up delay-100">
+            <div class="flex justify-between items-start">
+              <div class="bento-icon"><i data-lucide="activity"></i></div>
+              <div class="mini-bars" aria-hidden="true" style="width: 110px;">
+                <span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span
+                  style="height:70%"></span><span style="height:62%"></span><span style="height:85%"></span><span
+                  style="height:100%"></span>
+              </div>
+            </div>
+            <div>
+              <div class="bento-stat"><span data-count="99.2" data-decimals="1" data-suffix="%"></span></div>
+              <div class="bento-label">Dock uptime this quarter</div>
+            </div>
+          </div>
+
+          <div class="bento-tile bento-dark animate-fade-up delay-200">
+            <div class="bento-icon"><i data-lucide="battery-charging"></i></div>
+            <div>
+              <div class="bento-stat"><span data-count="600" data-suffix="+"></span></div>
+              <div class="bento-label">Pedal-assist e-bikes in the fleet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION COVERAGE -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="coverage animate-fade-up">
+          <div class="coverage-copy">
+            <span class="eyebrow">Coverage</span>
+            <h2>Always a bike <span class="serif">nearby.</span></h2>
+            <p class="lead">Over 200 docking stations placed around transit hubs, campuses and neighborhoods, so you're
+              never more than a short walk away.</p>
+            <ul class="coverage-list">
+              <li><i data-lucide="circle-check"></i> 92% of residents within a 5-minute walk</li>
+              <li><i data-lucide="circle-check"></i> Stations at every major subway stop</li>
+              <li><i data-lucide="circle-check"></i> Real-time bike and dock availability</li>
+            </ul>
+            <div>
+              <a href="station-map.html" class="btn btn-primary"><i data-lucide="map"></i> Explore Network Map</a>
+            </div>
+          </div>
+
+          <div class="coverage-map" aria-hidden="true">
+            <!-- Decorative map: plain coordinates (no place card), non-interactive so the mock pins stay aligned -->
+            <iframe title="Map of the CycleFlow network in Manhattan" tabindex="-1"
+              src="https://maps.google.com/maps?ll=40.735,-73.990&z=13&t=m&output=embed" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+            <!-- dashed route from you to the nearest station -->
+            <svg class="mpf-route" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path d="M58 62 C 60 55, 52 50, 54 42" vector-effect="non-scaling-stroke" />
+            </svg>
+
+            <div class="mpf-you" style="left: 58%; top: 62%;"></div>
+
+            <div class="mpf is-selected" style="left: 54%; top: 42%; --d: 0s;">
+              <div class="mpf-bubble"><i data-lucide="bike"></i><b>12</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+            <div class="mpf " style="left: 46%; top: 28%; --d: 0.8s;">
+              <div class="mpf-bubble"><i data-lucide="bike"></i><b>8</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+            <div class="mpf is-ebike" style="left: 67%; top: 30%; --d: 1.6s;">
+              <div class="mpf-bubble"><i data-lucide="zap"></i><b>5</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+            <div class="mpf is-low" style="left: 44%; top: 64%; --d: 0.4s;">
+              <div class="mpf-bubble"><i data-lucide="bike"></i><b>2</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+            <div class="mpf " style="left: 62%; top: 80%; --d: 1.2s;">
+              <div class="mpf-bubble"><i data-lucide="bike"></i><b>9</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+            <div class="mpf is-ebike" style="left: 76%; top: 54%; --d: 2s;">
+              <div class="mpf-bubble"><i data-lucide="zap"></i><b>6</b></div>
+              <span class="mpf-shadow"></span>
+            </div>
+
+            <div class="cov-label glass" style="top: 7%; right: 6%;"><span class="live-dot"></span> <b>1,284</b> bikes
+              live now</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section-bg">
+      <div class="container">
+        <div class="section-header animate-fade-up">
+          <span class="eyebrow">Rider stories</span>
+          <h2>Loved by <span class="serif">15,000</span> daily riders</h2>
+          <p>Join thousands who have changed their daily commute.</p>
+        </div>
+
+        <div class="quote-grid">
+          <figure class="quote-card animate-fade-up">
+            <div class="stars" aria-label="5 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+            <blockquote>"CycleFlow transformed how I get to work. I save money, get a light workout, and never worry
+              about parking."</blockquote>
+            <figcaption class="quote-author">
+              <img class="avatar"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&crop=faces&w=160&h=160&q=80"
+                alt="Sarah M." loading="lazy">
+              <div><strong>Sarah M.</strong><span class="caption">Monthly Member</span></div>
+            </figcaption>
+          </figure>
+          <figure class="quote-card animate-fade-up delay-100">
+            <div class="stars" aria-label="5 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+            <blockquote>"The bikes are always well-maintained and the stations are exactly where I need them. The web
+              app is super fast."</blockquote>
+            <figcaption class="quote-author">
+              <img class="avatar"
+                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&crop=faces&w=160&h=160&q=80"
+                alt="James T." loading="lazy">
+              <div><strong>James T.</strong><span class="caption">Pay-as-you-go</span></div>
+            </figcaption>
+          </figure>
+          <figure class="quote-card animate-fade-up delay-200">
+            <div class="stars" aria-label="5 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i
+                data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+            <blockquote>"As an eco-conscious citizen, knowing I'm reducing my carbon footprint every day is incredibly
+              rewarding."</blockquote>
+            <figcaption class="quote-author">
+              <img class="avatar"
+                src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&crop=faces&w=160&h=160&q=80"
+                alt="Elena R." loading="lazy">
+              <div><strong>Elena R.</strong><span class="caption">Annual Unlimited</span></div>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-photo animate-fade-up">
+          <img src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1920&q=80"
+            alt="" loading="lazy">
+          <span class="eyebrow" style="color: var(--c-primary-bright);">Join CycleFlow</span>
+          <h2>Your city is waiting. <span class="serif hl-accent">Unlock it.</span></h2>
+          <p class="lead">Unlock your city for as little as $2.50 per ride, or go unlimited from $18 a month.</p>
+          <div class="cta-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">Create Free Account <i data-lucide="arrow-right"
+                class="btn-arrow"></i></a>
+            <a href="pricing.html" class="btn btn-glass btn-lg">View Pricing Plans</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-4); display: inline-flex;">
+            <i data-lucide="bike"></i>
+            <span>CycleFlow</span>
+          </a>
+          <p class="caption">Empowering urban communities with sustainable, accessible, and affordable micromobility
+            solutions. Join the movement towards greener cities.</p>
+
+          <!-- Mailchimp Embed Placeholder -->
+          <!-- <div id="mc_embed_signup">...</div> -->
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="station-map.html">Station Map</a>
+            <a href="pricing.html">Pricing Plans</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Rider Agreement</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M4 4l6.5 8.6L4.3 20h1.6l5.3-6.1L15.8 20H20l-6.9-9.1L18.9 4h-1.6l-4.9 5.6L8.2 4z"
+                  fill="currentColor" stroke="none" />
+              </svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+              </svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 CycleFlow Operator. All rights reserved. <br>
+        <!-- GA_TAG Placeholder -->
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
+</body>
+
+</html>

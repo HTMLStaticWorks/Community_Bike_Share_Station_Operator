@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Station Map - CycleFlow</title>
+  <meta name="description" content="Find a CycleFlow bike share station near you with real-time availability.">
+
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/station-map.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </a>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="home2.html" class="nav-link">Home 2</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="station-map.html" class="nav-link active">Station Map</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+        <a href="login.html" class="btn btn-primary nav-login-link">Login</a>
+        <div class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="nav-brand"><i data-lucide="bike"></i><span>CycleFlow</span></div>
+      <button class="drawer-close" aria-label="Close menu"><i data-lucide="x"></i></button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="home2.html" class="nav-link">Home 2</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="station-map.html" class="nav-link active">Station Map</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+      <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+      <a href="login.html" class="btn btn-primary drawer-login">Login</a>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main>
+
+    <!-- PAGE HERO -->
+    <section class="sm-hero">
+      <div class="container">
+        <div class="animate-fade-up">
+          <div class="sm-hero-pill"><span class="live-dot"></span> <span><b id="heroBikes">0</b> bikes ready across the
+              network right now</span></div>
+          <h1>Find a bike, <span class="serif">anywhere</span> in the city.</h1>
+          <p class="lead">Live availability for every CycleFlow station. See bikes, e-bikes and open docks before you
+            walk over.</p>
+
+          <form class="search-pill" id="heroSearch" role="search">
+            <i data-lucide="map-pin"></i>
+            <input type="text" id="heroQuery" placeholder="Search a station, street or neighborhood..."
+              aria-label="Search stations" autocomplete="off">
+            <button type="submit" class="btn btn-primary"><i data-lucide="search"></i> <span>Search</span></button>
+          </form>
+
+          <div class="sm-hoods">
+            <span>Popular:</span>
+            <button type="button" class="chip" data-hood="Midtown">Midtown</button>
+            <button type="button" class="chip" data-hood="Downtown">Downtown</button>
+            <button type="button" class="chip" data-hood="Tribeca">Tribeca</button>
+            <button type="button" class="chip" data-hood="East Village">East Village</button>
+          </div>
+        </div>
+
+        <div class="stats-band animate-fade-up delay-100">
+          <div>
+            <div class="bento-stat"><span class="sm-stat-icon"><i data-lucide="map-pin"></i></span><span
+                id="statStations">0</span></div>
+            <div class="bento-label">Stations nearby</div>
+          </div>
+          <div>
+            <div class="bento-stat"><span class="sm-stat-icon"><i data-lucide="bike"></i></span><span
+                id="statClassic">0</span></div>
+            <div class="bento-label">Classic bikes available</div>
+          </div>
+          <div>
+            <div class="bento-stat"><span class="sm-stat-icon is-accent"><i data-lucide="zap"></i></span><span
+                id="statEbike">0</span></div>
+            <div class="bento-label">E-bikes charged &amp; ready</div>
+          </div>
+          <div>
+            <div class="bento-stat"><span class="sm-stat-icon"><i data-lucide="circle-parking"></i></span><span
+                id="statDocks">0</span></div>
+            <div class="bento-label">Open docks to return</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATION MAP -->
+    <section class="sm-section" id="map">
+      <div class="container">
+        <div class="sm-shell animate-fade-up">
+
+          <!-- Sidebar -->
+          <aside class="sm-sidebar" aria-label="Station list">
+            <div class="sm-side-head">
+              <div class="sm-side-title">
+                <h2>Stations</h2>
+                <span class="sm-count" id="listCount">Showing 0 of 0</span>
+              </div>
+
+              <div class="sm-search" id="sideSearchWrap">
+                <i data-lucide="search"></i>
+                <input type="text" class="form-control" id="sideQuery" placeholder="Search neighborhood or address..."
+                  aria-label="Filter stations" autocomplete="off">
+                <button type="button" class="sm-search-clear" id="clearSearch" aria-label="Clear search"><i
+                    data-lucide="x"></i></button>
+              </div>
+
+              <div class="sm-filters" role="group" aria-label="Filter stations">
+                <button class="chip is-active" type="button" data-filter="all">All</button>
+                <button class="chip" type="button" data-filter="bikes"><i data-lucide="bike"></i>Bikes</button>
+                <button class="chip" type="button" data-filter="ebikes"><i data-lucide="zap"></i>E-bikes</button>
+                <button class="chip" type="button" data-filter="docks"><i
+                    data-lucide="circle-parking"></i>Docks</button>
+              </div>
+
+              <div class="sm-sort">
+                <label for="sortSelect">Sort by</label>
+                <select id="sortSelect">
+                  <option value="near">Nearest first</option>
+                  <option value="bikes">Most bikes</option>
+                  <option value="docks">Most open docks</option>
+                  <option value="name">Name (A–Z)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="sm-list" id="stationList"></div>
+
+            <div class="sm-empty" id="emptyState">
+              <div class="sm-empty-icon"><i data-lucide="search-x"></i></div>
+              <h3>No stations match</h3>
+              <p class="caption">Try another neighborhood or remove a filter.</p>
+              <button type="button" class="btn btn-outline" id="resetFilters">Reset filters</button>
+            </div>
+          </aside>
+
+          <!-- Map -->
+          <div class="sm-map" id="smMap">
+            <div class="sm-canvas" id="smCanvas">
+              <svg viewBox="0 0 800 600" preserveAspectRatio="none" aria-hidden="true">
+                <rect class="map-land" width="800" height="600" />
+                <g class="map-block">
+                  <rect x="160" y="30" width="110" height="80" rx="6" />
+                  <rect x="290" y="30" width="110" height="80" rx="6" />
+                  <rect x="630" y="30" width="150" height="80" rx="6" />
+                  <rect x="160" y="150" width="110" height="130" rx="6" />
+                  <rect x="630" y="150" width="150" height="130" rx="6" />
+                  <rect x="420" y="240" width="190" height="60" rx="6" />
+                  <rect x="160" y="320" width="110" height="130" rx="6" />
+                  <rect x="520" y="320" width="90" height="130" rx="6" />
+                  <rect x="630" y="320" width="150" height="110" rx="6" />
+                  <rect x="290" y="490" width="110" height="90" rx="6" />
+                  <rect x="420" y="490" width="190" height="90" rx="6" />
+                </g>
+                <rect class="map-park" x="420" y="30" width="190" height="190" rx="20" />
+                <rect class="map-park" x="290" y="330" width="110" height="130" rx="16" />
+                <path class="map-water" d="M0 0 H125 C150 120 95 220 132 330 C165 430 112 520 140 600 H0 Z" />
+                <path class="map-water" d="M800 460 C730 470 690 540 670 600 H800 Z" />
+                <g class="map-street" stroke-width="7">
+                  <path d="M280 0 V600" />
+                  <path d="M410 0 V600" />
+                  <path d="M620 0 V600" />
+                </g>
+                <g class="map-street" stroke-width="4">
+                  <path d="M130 120 H800" />
+                  <path d="M130 230 H800" />
+                  <path d="M130 310 H800" />
+                  <path d="M140 470 H800" />
+                  <path d="M515 300 V480" />
+                </g>
+                <path class="map-street" stroke-width="10" d="M170 0 L760 600" />
+                <path class="map-lane" d="M150 0 C175 120 118 220 155 330 C190 430 138 520 165 600" />
+                <path class="map-lane" d="M130 310 H800" />
+                <path class="map-lane" d="M410 0 V600" />
+              </svg>
+
+              <span class="map-label is-water" style="left: 7%; top: 70%;">Hudson River</span>
+              <span class="map-label" style="left: 56%; top: 8%;">Central Park</span>
+              <span class="map-label" style="left: 82%; top: 44%;">East Village</span>
+              <span class="map-label" style="left: 44%; top: 92%;">Financial District</span>
+
+              <div class="you-dot" style="left: 49%; top: 55%;" title="You are here"></div>
+              <div class="map-pins" id="smPins"></div>
+            </div>
+
+            <div class="sm-toolbar">
+              <div class="explorer-legend">
+                <span><i style="background: var(--c-primary);"></i> Plenty</span>
+                <span><i style="background: var(--c-amber);"></i> Low</span>
+                <span><i style="background: var(--c-error);"></i> Empty</span>
+                <span><i style="background: #3B82F6;"></i> You</span>
+              </div>
+              <div class="live-badge"><span class="live-dot"></span> <span id="liveClock">Live · updated just now</span>
+              </div>
+            </div>
+
+            <div class="sm-controls">
+              <button type="button" id="zoomIn" aria-label="Zoom in"><i data-lucide="plus"></i></button>
+              <button type="button" id="zoomOut" aria-label="Zoom out"><i data-lucide="minus"></i></button>
+              <button type="button" id="locateMe" aria-label="Show nearest station"><i
+                  data-lucide="locate-fixed"></i></button>
+              <button type="button" id="resetView" aria-label="Reset view"><i data-lucide="maximize"></i></button>
+            </div>
+
+            <div class="sm-zoom-level" id="zoomLevel">Double-click or press + to zoom</div>
+
+            <!-- Selected station popup -->
+            <div class="sm-popup is-hidden" id="smPopup" aria-live="polite">
+              <button type="button" class="sm-popup-close" id="popupClose" aria-label="Close station details"><i
+                  data-lucide="x"></i></button>
+              <div class="sm-popup-head">
+                <span class="caption"><span id="popHood">Downtown</span> · <span class="status-badge"
+                    id="popStatus">Plenty</span></span>
+                <h3 id="popName">Station</h3>
+                <p id="popAddr">Address</p>
+              </div>
+
+              <div class="panel-stats">
+                <div class="panel-stat"><i data-lucide="bike"></i><b id="popClassic">0</b><small>Classic</small></div>
+                <div class="panel-stat"><i data-lucide="zap"></i><b id="popEbike">0</b><small>E-bikes</small></div>
+                <div class="panel-stat"><i data-lucide="circle-parking"></i><b id="popDocks">0</b><small>Open
+                    docks</small></div>
+              </div>
+
+              <div>
+                <div class="cap-bar" aria-hidden="true"><span class="cap-classic" id="popCapClassic"></span><span
+                    class="cap-ebike" id="popCapEbike"></span></div>
+              </div>
+
+              <div class="sm-popup-row">
+                <span><i data-lucide="footprints"></i> <b id="popWalk">0 min</b> walk</span>
+                <span><i data-lucide="navigation"></i> <span id="popDist">0 mi</span></span>
+              </div>
+
+              <div class="sm-popup-actions">
+                <a href="login.html" class="btn btn-primary" id="popUnlock"><i data-lucide="scan-line"></i> Unlock</a>
+                <a href="#" class="btn btn-outline" id="popDirections" target="_blank" rel="noopener"><i
+                    data-lucide="navigation-2"></i> Directions</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="section" style="padding-top: 0;">
+      <div class="container">
+        <div class="cta-photo animate-fade-up">
+          <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=1920&q=80" alt="" loading="lazy">
+          <span class="eyebrow" style="color: var(--c-primary-bright);">Ready when you are</span>
+          <h2>Found your station? <span class="serif hl-accent">Start riding.</span></h2>
+          <p class="lead">Create a free account in under a minute and unlock any bike on the map. Your first ride is on
+            us.</p>
+          <div class="cta-actions">
+            <a href="register.html" class="btn btn-primary btn-lg">Create Free Account <i data-lucide="arrow-right"
+                class="btn-arrow"></i></a>
+            <a href="pricing.html" class="btn btn-glass btn-lg">Compare Plans</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="index.html" class="nav-brand" style="margin-bottom: var(--space-4); display: inline-flex;">
+            <i data-lucide="bike"></i>
+            <span>CycleFlow</span>
+          </a>
+          <p class="caption">Empowering urban communities with sustainable, accessible, and affordable micromobility
+            solutions. Join the movement towards greener cities.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="how-it-works.html">How It Works</a>
+            <a href="station-map.html">Station Map</a>
+            <a href="pricing.html">Pricing Plans</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <div class="footer-links">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Rider Agreement</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social">
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l6.5 8.6L4.3 20h1.6l5.3-6.1L15.8 20H20l-6.9-9.1L18.9 4h-1.6l-4.9 5.6L8.2 4z" fill="currentColor" stroke="none"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 CycleFlow Operator. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/stations-data.js"></script>
+  <script src="assets/js/station-map.js"></script>
+</body>
+
+</html>

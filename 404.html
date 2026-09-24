@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found - CycleFlow</title>
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/rtl.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- ================= HEADER / NAVBAR ================= -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="index.html" class="nav-brand">
+        <i data-lucide="bike"></i>
+        <span>CycleFlow</span>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="home2.html" class="nav-link">Home 2</a>
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="station-map.html" class="nav-link">Station Map</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+      </nav>
+      
+      <div class="nav-actions">
+        <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+        <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+        <a href="login.html" class="btn btn-primary nav-login-link">Login</a>
+        <div class="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="drawer-overlay"></div>
+  <div class="drawer">
+    <div class="drawer-header">
+      <div class="nav-brand"><i data-lucide="bike"></i><span>CycleFlow</span></div>
+      <button class="drawer-close" aria-label="Close menu"><i data-lucide="x"></i></button>
+    </div>
+    <nav class="drawer-nav">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="home2.html" class="nav-link">Home 2</a>
+      <a href="how-it-works.html" class="nav-link">How It Works</a>
+      <a href="station-map.html" class="nav-link">Station Map</a>
+      <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="dashboard.html" class="nav-link">Dashboard</a>
+    </nav>
+    <div class="drawer-actions">
+      <button class="icon-btn theme-toggle" aria-label="Toggle theme"><i data-lucide="moon"></i></button>
+      <button class="icon-btn rtl-toggle" aria-label="Toggle RTL"><i data-lucide="arrow-left-right"></i></button>
+      <a href="login.html" class="btn btn-primary drawer-login">Login</a>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main style="min-height: calc(100vh - var(--nav-height)); display: flex; align-items: center; justify-content: center; padding-top: var(--nav-height);">
+    <section class="section text-center">
+      <div class="container animate-fade-up">
+        <i data-lucide="map" style="width: 120px; height: 120px; color: var(--c-primary-light); margin-bottom: var(--space-4);"></i>
+        <h1 style="font-size: clamp(4rem, 8vw + 1rem, 8rem); color: var(--c-primary); line-height: 1;">404</h1>
+        <h2 style="margin-bottom: var(--space-4);">Looks like you took a wrong turn!</h2>
+        <p class="lead" style="margin-bottom: var(--space-6); max-width: 500px; margin-inline: auto;">The page you are looking for has been moved, removed, or might never have existed. Let's get you back on track.</p>
+        <a href="index.html" class="btn btn-primary"><i data-lucide="arrow-left"></i> Return Home</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
