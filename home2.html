@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
   <meta name="theme-color" content="#FAFBF8">
 
   <!-- CSS -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/home.css">
   <link rel="stylesheet" href="assets/css/rtl.css">
@@ -15,6 +17,7 @@
   <!-- Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
 
   <!-- ================= HEADER / NAVBAR ================= -->
@@ -94,7 +97,8 @@
         <div class="animate-fade-up">
           <div class="badge-new"><span>New</span> 12 stations added in Riverside</div>
           <h1>Smart urban mobility, <span class="serif">made simple.</span></h1>
-          <p class="lead" style="max-width: 32rem;">Experience the city at your own pace. Clean, green, and always ready when you are. No car, no parking, no problem.</p>
+          <p class="lead" style="max-width: 32rem;">Experience the city at your own pace. Clean, green, and always ready
+            when you are. No car, no parking, no problem.</p>
 
           <form action="station-map.html" class="search-pill" role="search">
             <i data-lucide="map-pin"></i>
@@ -116,14 +120,15 @@
               <div class="avatar">MB</div>
             </div>
             <div>
-              <div class="stars" aria-label="4.9 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
+              <div class="stars" aria-label="4.9 out of 5 stars"><i data-lucide="star"></i><i data-lucide="star"></i><i
+                  data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div>
               <p><b>4.9/5</b> from 15,000+ riders</p>
             </div>
           </div>
         </div>
 
         <div class="hero-media animate-fade-up delay-200">
-          <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?auto=format&fit=crop&w=1200&q=80" alt="CycleFlow docking station">
+          <img src="assets/images/hero-split-docking-station.jpg" alt="CycleFlow docking station">
 
           <div class="float-card glass fc-1">
             <div class="fc-icon"><i data-lucide="timer"></i></div>
@@ -180,7 +185,8 @@
 
         <div class="steps-grid">
           <article class="step-card animate-fade-up">
-            <img class="step-img" src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=700&q=80" alt="Rider scanning a QR code with a phone" loading="lazy">
+            <img class="step-img" src="assets/images/step-unlock-qr-scan-02.jpg"
+              alt="Rider scanning a QR code with a phone" loading="lazy">
             <div class="step-top">
               <div class="card-icon"><i data-lucide="smartphone-nfc"></i></div>
               <span class="step-num">01</span>
@@ -189,7 +195,8 @@
             <p>Scan the station QR code in the CycleFlow web app, or enter the 5-digit bike ID.</p>
           </article>
           <article class="step-card animate-fade-up delay-100">
-            <img class="step-img" src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=700&q=80" alt="Bike ready to ride on a city street" loading="lazy">
+            <img class="step-img" src="assets/images/step-ride-protected-lane-02.jpg"
+              alt="Bike ready to ride on a city street" loading="lazy">
             <div class="step-top">
               <div class="card-icon"><i data-lucide="bike"></i></div>
               <span class="step-num">02</span>
@@ -198,7 +205,8 @@
             <p>Enjoy a smooth, eco-friendly ride on protected lanes across the city network.</p>
           </article>
           <article class="step-card animate-fade-up delay-200">
-            <img class="step-img" src="https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=700&q=80" alt="Bike parked at a docking spot" loading="lazy">
+            <img class="step-img" src="assets/images/step-return-dock-bike-02.jpg" alt="Bike parked at a docking spot"
+              loading="lazy">
             <div class="step-top">
               <div class="card-icon"><i data-lucide="map-pin"></i></div>
               <span class="step-num">03</span>
@@ -216,7 +224,8 @@
         <div class="section-header animate-fade-up">
           <span class="eyebrow">Live network</span>
           <h2>Explore stations in <span class="serif">real time</span></h2>
-          <p>Tap any station to see bikes, e-bikes and open docks as they change, then hold a bike for 10 minutes while you walk over.</p>
+          <p>Tap any station to see bikes, e-bikes and open docks as they change, then hold a bike for 10 minutes while
+            you walk over.</p>
         </div>
 
         <div class="explorer animate-fade-up delay-100">
@@ -227,61 +236,73 @@
                 <button class="chip is-active" type="button" data-filter="all">All</button>
                 <button class="chip" type="button" data-filter="bikes"><i data-lucide="bike"></i> Bikes</button>
                 <button class="chip" type="button" data-filter="ebikes"><i data-lucide="zap"></i> E-bikes</button>
-                <button class="chip" type="button" data-filter="docks"><i data-lucide="circle-parking"></i> Docks</button>
+                <button class="chip" type="button" data-filter="docks"><i data-lucide="circle-parking"></i>
+                  Docks</button>
               </div>
-              <div class="live-badge"><span class="live-dot"></span> <span id="liveClock">Live · updated just now</span></div>
+              <div class="live-badge"><span class="live-dot"></span> <span id="liveClock">Live · updated just now</span>
+              </div>
             </div>
 
-          <div class="explorer-map" id="explorerMap">
-            <svg viewBox="0 0 800 600" preserveAspectRatio="none" aria-hidden="true">
-              <rect class="map-land" width="800" height="600"/>
-              <!-- city blocks -->
-              <g class="map-block">
-                <rect x="160" y="30" width="110" height="80" rx="6"/><rect x="290" y="30" width="110" height="80" rx="6"/>
-                <rect x="630" y="30" width="150" height="80" rx="6"/><rect x="160" y="150" width="110" height="130" rx="6"/>
-                <rect x="630" y="150" width="150" height="130" rx="6"/><rect x="420" y="240" width="190" height="60" rx="6"/>
-                <rect x="160" y="320" width="110" height="130" rx="6"/><rect x="520" y="320" width="90" height="130" rx="6"/>
-                <rect x="630" y="320" width="150" height="110" rx="6"/><rect x="290" y="490" width="110" height="90" rx="6"/>
-                <rect x="420" y="490" width="190" height="90" rx="6"/>
-              </g>
-              <!-- parks -->
-              <rect class="map-park" x="420" y="30" width="190" height="190" rx="20"/>
-              <rect class="map-park" x="290" y="330" width="110" height="130" rx="16"/>
-              <!-- water -->
-              <path class="map-water" d="M0 0 H125 C150 120 95 220 132 330 C165 430 112 520 140 600 H0 Z"/>
-              <path class="map-water" d="M800 460 C730 470 690 540 670 600 H800 Z"/>
-              <!-- avenues -->
-              <g class="map-street" stroke-width="7">
-                <path d="M280 0 V600"/><path d="M410 0 V600"/><path d="M620 0 V600"/>
-              </g>
-              <!-- streets -->
-              <g class="map-street" stroke-width="4">
-                <path d="M130 120 H800"/><path d="M130 230 H800"/><path d="M130 310 H800"/>
-                <path d="M140 470 H800"/><path d="M515 300 V480"/>
-              </g>
-              <!-- broadway -->
-              <path class="map-street" stroke-width="10" d="M170 0 L760 600"/>
-              <!-- protected bike lanes -->
-              <path class="map-lane" d="M150 0 C175 120 118 220 155 330 C190 430 138 520 165 600"/>
-              <path class="map-lane" d="M130 310 H800"/>
-              <path class="map-lane" d="M410 0 V600"/>
-            </svg>
+            <div class="explorer-map" id="explorerMap">
+              <svg viewBox="0 0 800 600" preserveAspectRatio="none" aria-hidden="true">
+                <rect class="map-land" width="800" height="600" />
+                <!-- city blocks -->
+                <g class="map-block">
+                  <rect x="160" y="30" width="110" height="80" rx="6" />
+                  <rect x="290" y="30" width="110" height="80" rx="6" />
+                  <rect x="630" y="30" width="150" height="80" rx="6" />
+                  <rect x="160" y="150" width="110" height="130" rx="6" />
+                  <rect x="630" y="150" width="150" height="130" rx="6" />
+                  <rect x="420" y="240" width="190" height="60" rx="6" />
+                  <rect x="160" y="320" width="110" height="130" rx="6" />
+                  <rect x="520" y="320" width="90" height="130" rx="6" />
+                  <rect x="630" y="320" width="150" height="110" rx="6" />
+                  <rect x="290" y="490" width="110" height="90" rx="6" />
+                  <rect x="420" y="490" width="190" height="90" rx="6" />
+                </g>
+                <!-- parks -->
+                <rect class="map-park" x="420" y="30" width="190" height="190" rx="20" />
+                <rect class="map-park" x="290" y="330" width="110" height="130" rx="16" />
+                <!-- water -->
+                <path class="map-water" d="M0 0 H125 C150 120 95 220 132 330 C165 430 112 520 140 600 H0 Z" />
+                <path class="map-water" d="M800 460 C730 470 690 540 670 600 H800 Z" />
+                <!-- avenues -->
+                <g class="map-street" stroke-width="7">
+                  <path d="M280 0 V600" />
+                  <path d="M410 0 V600" />
+                  <path d="M620 0 V600" />
+                </g>
+                <!-- streets -->
+                <g class="map-street" stroke-width="4">
+                  <path d="M130 120 H800" />
+                  <path d="M130 230 H800" />
+                  <path d="M130 310 H800" />
+                  <path d="M140 470 H800" />
+                  <path d="M515 300 V480" />
+                </g>
+                <!-- broadway -->
+                <path class="map-street" stroke-width="10" d="M170 0 L760 600" />
+                <!-- protected bike lanes -->
+                <path class="map-lane" d="M150 0 C175 120 118 220 155 330 C190 430 138 520 165 600" />
+                <path class="map-lane" d="M130 310 H800" />
+                <path class="map-lane" d="M410 0 V600" />
+              </svg>
 
-            <span class="map-label is-water" style="left: 7%; top: 70%;">Hudson River</span>
-            <span class="map-label" style="left: 56%; top: 8%;">Central Park</span>
-            <span class="map-label" style="left: 82%; top: 44%;">East Village</span>
-            <span class="map-label" style="left: 44%; top: 92%;">Financial District</span>
+              <span class="map-label is-water" style="left: 7%; top: 70%;">Hudson River</span>
+              <span class="map-label" style="left: 56%; top: 8%;">Central Park</span>
+              <span class="map-label" style="left: 82%; top: 44%;">East Village</span>
+              <span class="map-label" style="left: 44%; top: 92%;">Financial District</span>
 
-            <div class="you-dot" style="left: 49%; top: 55%;" title="You are here"></div>
-            <div class="map-pins" id="mapPins"></div>
+              <div class="you-dot" style="left: 49%; top: 55%;" title="You are here"></div>
+              <div class="map-pins" id="mapPins"></div>
 
-            <div class="explorer-legend">
-              <span><i style="background: var(--c-primary);"></i> Plenty</span>
-              <span><i style="background: var(--c-amber);"></i> Low</span>
-              <span><i style="background: var(--c-error);"></i> Empty</span>
-              <span><i style="background: #3B82F6;"></i> You</span>
+              <div class="explorer-legend">
+                <span><i style="background: var(--c-primary);"></i> Plenty</span>
+                <span><i style="background: var(--c-amber);"></i> Low</span>
+                <span><i style="background: var(--c-error);"></i> Empty</span>
+                <span><i style="background: #3B82F6;"></i> You</span>
+              </div>
             </div>
-          </div>
           </div>
 
           <!-- Station detail panel -->
@@ -290,7 +311,8 @@
               <div>
                 <span class="caption" id="pHood">Downtown</span>
                 <h3 class="panel-name" id="pName">Union Square</h3>
-                <div class="panel-addr"><i data-lucide="map-pin"></i> <span id="pAddr">Broadway &amp; E 14th St</span></div>
+                <div class="panel-addr"><i data-lucide="map-pin"></i> <span id="pAddr">Broadway &amp; E 14th St</span>
+                </div>
               </div>
               <span class="status-badge" id="pStatus">Plenty</span>
             </div>
@@ -298,11 +320,13 @@
             <div class="panel-stats">
               <div class="panel-stat"><i data-lucide="bike"></i><b id="pClassic">0</b><small>Classic</small></div>
               <div class="panel-stat"><i data-lucide="zap"></i><b id="pEbike">0</b><small>E-bikes</small></div>
-              <div class="panel-stat"><i data-lucide="circle-parking"></i><b id="pDocks">0</b><small>Open docks</small></div>
+              <div class="panel-stat"><i data-lucide="circle-parking"></i><b id="pDocks">0</b><small>Open docks</small>
+              </div>
             </div>
 
             <div>
-              <div class="cap-bar" aria-hidden="true"><span class="cap-classic" id="capClassic"></span><span class="cap-ebike" id="capEbike"></span></div>
+              <div class="cap-bar" aria-hidden="true"><span class="cap-classic" id="capClassic"></span><span
+                  class="cap-ebike" id="capEbike"></span></div>
               <div class="cap-meta"><span id="capText">0 of 0 docks filled</span><span id="capPct">0%</span></div>
             </div>
 
@@ -318,8 +342,10 @@
             </div>
 
             <div class="panel-actions">
-              <button type="button" class="btn btn-primary" id="reserveBtn"><i data-lucide="timer"></i> <span id="reserveLabel">Reserve for 10 min</span></button>
-              <a href="station-map.html" class="btn btn-outline" aria-label="Open in station map"><i data-lucide="navigation-2"></i></a>
+              <button type="button" class="btn btn-primary" id="reserveBtn"><i data-lucide="timer"></i> <span
+                  id="reserveLabel">Reserve for 10 min</span></button>
+              <a href="station-map.html" class="btn btn-outline" aria-label="Open in station map"><i
+                  data-lucide="navigation-2"></i></a>
             </div>
           </aside>
         </div>
@@ -358,11 +384,12 @@
                 </div>
               </li>
             </ul>
-            <a href="how-it-works.html" class="btn btn-dark">Read the full guide <i data-lucide="arrow-right" class="btn-arrow"></i></a>
+            <a href="how-it-works.html" class="btn btn-dark">Read the full guide <i data-lucide="arrow-right"
+                class="btn-arrow"></i></a>
           </div>
 
           <div class="media-frame animate-fade-up delay-100">
-            <img src="https://images.unsplash.com/photo-1520625471617-e8fa3910c2fc?auto=format&fit=crop&w=900&q=80" alt="Rider using the CycleFlow app" loading="lazy">
+            <img src="assets/images/experience-rider-using-app.jpg" alt="Rider using the CycleFlow app" loading="lazy">
             <div class="float-card glass">
               <div class="fc-icon"><i data-lucide="circle-check"></i></div>
               <div>
@@ -378,42 +405,49 @@
     <!-- TESTIMONIAL CAROUSEL -->
     <section class="section section-bg">
       <div class="container">
-        <div class="featured-quote tcarousel animate-fade-up" data-carousel aria-roledescription="carousel" aria-label="Rider testimonials">
+        <div class="featured-quote tcarousel animate-fade-up" data-carousel aria-roledescription="carousel"
+          aria-label="Rider testimonials">
           <div class="quote-mark"><i data-lucide="quote"></i></div>
           <div class="tc-track" tabindex="0">
             <figure class="tc-slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
-              <blockquote>"The convenience is unmatched. I no longer wait for crowded buses or fight for parking downtown. CycleFlow is <em>my go-to.</em>"</blockquote>
+              <blockquote>"The convenience is unmatched. I no longer wait for crowded buses or fight for parking
+                downtown. CycleFlow is <em>my go-to.</em>"</blockquote>
               <figcaption class="quote-author">
-                <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&crop=faces&w=160&h=160&q=80" alt="Michael B." loading="lazy">
+                <img class="avatar" src="assets/images/avatar-testimonial-male-02.jpg" alt="Michael B." loading="lazy">
                 <div><strong>Michael B.</strong><span class="caption">Daily Commuter · Member since 2024</span></div>
               </figcaption>
             </figure>
             <figure class="tc-slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
-              <blockquote>"I sold my second car last spring. Between the e-bikes and how many stations there are, <em>I don't miss it at all.</em>"</blockquote>
+              <blockquote>"I sold my second car last spring. Between the e-bikes and how many stations there are, <em>I
+                  don't miss it at all.</em>"</blockquote>
               <figcaption class="quote-author">
-                <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&crop=faces&w=160&h=160&q=80" alt="Priya K." loading="lazy">
+                <img class="avatar" src="assets/images/avatar-testimonial-female-03.jpg" alt="Priya K." loading="lazy">
                 <div><strong>Priya K.</strong><span class="caption">Annual Pass · Member since 2023</span></div>
               </figcaption>
             </figure>
             <figure class="tc-slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
-              <blockquote>"Reserving a bike before I leave the office means I <em>never walk to an empty dock</em> anymore."</blockquote>
+              <blockquote>"Reserving a bike before I leave the office means I <em>never walk to an empty dock</em>
+                anymore."</blockquote>
               <figcaption class="quote-author">
-                <img class="avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&crop=faces&w=160&h=160&q=80" alt="David L." loading="lazy">
+                <img class="avatar" src="assets/images/avatar-testimonial-male-03.jpg" alt="David L." loading="lazy">
                 <div><strong>David L.</strong><span class="caption">Monthly Commuter · Member since 2025</span></div>
               </figcaption>
             </figure>
             <figure class="tc-slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
-              <blockquote>"Cheaper than a bus pass and way more fun. Getting across campus takes <em>five minutes flat.</em>"</blockquote>
+              <blockquote>"Cheaper than a bus pass and way more fun. Getting across campus takes <em>five minutes
+                  flat.</em>"</blockquote>
               <figcaption class="quote-author">
-                <img class="avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&crop=faces&w=160&h=160&q=80" alt="Aisha N." loading="lazy">
+                <img class="avatar" src="assets/images/avatar-testimonial-female-04.jpg" alt="Aisha N." loading="lazy">
                 <div><strong>Aisha N.</strong><span class="caption">Student · Pay-as-you-go</span></div>
               </figcaption>
             </figure>
           </div>
           <div class="tc-controls">
-            <button type="button" class="tc-btn" data-dir="-1" aria-label="Previous testimonial"><i data-lucide="arrow-left"></i></button>
+            <button type="button" class="tc-btn" data-dir="-1" aria-label="Previous testimonial"><i
+                data-lucide="arrow-left"></i></button>
             <div class="tc-dots" role="tablist" aria-label="Choose testimonial"></div>
-            <button type="button" class="tc-btn" data-dir="1" aria-label="Next testimonial"><i data-lucide="arrow-right"></i></button>
+            <button type="button" class="tc-btn" data-dir="1" aria-label="Next testimonial"><i
+                data-lucide="arrow-right"></i></button>
           </div>
         </div>
       </div>
@@ -423,12 +457,13 @@
     <section class="section">
       <div class="container">
         <div class="cta-photo animate-fade-up">
-          <img src="https://images.unsplash.com/photo-1475503572774-15a45e5d60b9?auto=format&fit=crop&w=1920&q=80" alt="" loading="lazy">
+          <img src="assets/images/cta-photo-unlock-city-cyclist-02.jpg" alt="" loading="lazy">
           <span class="eyebrow" style="color: var(--c-primary-bright);">Ready to roll?</span>
           <h2>Your first ride is <span class="serif hl-accent">on us.</span></h2>
           <p class="lead">Sign up in under a minute and unlock any bike in the network today.</p>
           <div class="cta-actions">
-            <a href="register.html" class="btn btn-primary btn-lg">Create Account <i data-lucide="arrow-right" class="btn-arrow"></i></a>
+            <a href="register.html" class="btn btn-primary btn-lg">Create Account <i data-lucide="arrow-right"
+                class="btn-arrow"></i></a>
             <a href="pricing.html" class="btn btn-glass btn-lg">Compare Plans</a>
           </div>
         </div>
@@ -446,7 +481,8 @@
             <i data-lucide="bike"></i>
             <span>CycleFlow</span>
           </a>
-          <p class="caption">Empowering urban communities with sustainable, accessible, and affordable micromobility solutions. Join the movement towards greener cities.</p>
+          <p class="caption">Empowering urban communities with sustainable, accessible, and affordable micromobility
+            solutions. Join the movement towards greener cities.</p>
         </div>
 
         <div class="footer-col">
@@ -472,9 +508,24 @@
         <div class="footer-col">
           <h4>Connect</h4>
           <div class="footer-social">
-            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l6.5 8.6L4.3 20h1.6l5.3-6.1L15.8 20H20l-6.9-9.1L18.9 4h-1.6l-4.9 5.6L8.2 4z" fill="currentColor" stroke="none"/></svg></a>
-            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg></a>
-            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M4 4l6.5 8.6L4.3 20h1.6l5.3-6.1L15.8 20H20l-6.9-9.1L18.9 4h-1.6l-4.9 5.6L8.2 4z"
+                  fill="currentColor" stroke="none" />
+              </svg></a>
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" />
+              </svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                aria-hidden="true">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg></a>
           </div>
         </div>
       </div>
@@ -489,4 +540,5 @@
   <script src="assets/js/stations-data.js"></script>
   <script src="assets/js/home.js"></script>
 </body>
+
 </html>
