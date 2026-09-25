@@ -32,6 +32,28 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
+     BACK TO TOP BUTTON
+     ========================================================================== */
+  const backToTop = document.createElement('button');
+  backToTop.type = 'button';
+  backToTop.className = 'back-to-top';
+  backToTop.setAttribute('aria-label', 'Back to top');
+  backToTop.innerHTML = '<i data-lucide="arrow-up"></i>';
+  document.body.appendChild(backToTop);
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+
+  function updateBackToTop() {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  }
+
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  updateBackToTop();
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ==========================================================================
      HAMBURGER DRAWER
      ========================================================================== */
   function openDrawer() {

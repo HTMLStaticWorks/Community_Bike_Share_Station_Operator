@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (targetLink) targetLink.classList.add('active');
     if (targetTab) targetTab.classList.add('active');
-    
+
+    // Start the new page from the top (instant, bypassing smooth scroll)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
     // Close sidebar on mobile after clicking
     if (window.innerWidth <= 1024) {
       document.querySelector('.dashboard-sidebar').classList.remove('active');

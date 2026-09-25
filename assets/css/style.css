@@ -1141,3 +1141,152 @@ body.auth-page {
 @media (max-width: 600px) {
   .footer-grid { grid-template-columns: 1fr; }
 }
+
+
+/* ==========================================================================
+   FAQ ACCORDION (pricing, how it works)
+   ========================================================================== */
+.faq-list {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.faq-item {
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.faq-item:hover {
+  border-color: var(--c-border-strong);
+}
+
+.faq-item[open] {
+  border-color: color-mix(in srgb, var(--c-primary) 35%, transparent);
+  box-shadow: var(--shadow-soft);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: var(--weight-h4);
+  letter-spacing: -0.015em;
+  border-radius: var(--radius-lg);
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-text-main);
+  transition: transform 0.35s var(--ease-out), background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.faq-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.faq-item[open] .faq-icon {
+  transform: rotate(45deg);
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: var(--c-on-primary);
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.35rem;
+  color: var(--c-text-muted);
+  animation: faqOpen 0.4s var(--ease-out);
+}
+
+@keyframes faqOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-item summary {
+    padding: 1rem 1.1rem;
+    font-size: 1rem;
+  }
+
+  .faq-answer {
+    padding: 0 1.1rem 1.1rem;
+  }
+}
+
+/* ==========================================================================
+   BACK TO TOP BUTTON (injected by main.js)
+   ========================================================================== */
+.back-to-top {
+  position: fixed;
+  bottom: var(--space-4);
+  inset-inline-end: var(--space-4);
+  z-index: 900;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  border: none;
+  box-shadow: var(--shadow-hover);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s, visibility 0.3s, transform 0.35s var(--ease-out), background-color 0.3s;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: var(--c-primary-hover);
+  transform: translateY(-3px);
+}
+
+.back-to-top:focus-visible {
+  outline: none;
+  box-shadow: var(--ring), var(--shadow-hover);
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 600px) {
+  .back-to-top {
+    width: 42px;
+    height: 42px;
+    bottom: var(--space-3);
+    inset-inline-end: var(--space-3);
+  }
+}
