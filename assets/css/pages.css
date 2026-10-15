@@ -1,0 +1,905 @@
+/* ==========================================================================
+   ABOUT + CONTACT PAGES
+   Layered on style.css tokens and home.css components (media-frame, float-card,
+   li-icon, status-badge, map palette).
+   ========================================================================== */
+
+.section-intro {
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   ABOUT — OUR STORY
+   ========================================================================== */
+.story-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+
+.story-copy > p {
+  color: var(--c-text-muted);
+}
+
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.milestone {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-inline-start: 3px solid var(--c-primary);
+}
+
+.milestone-year {
+  display: block;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--c-primary);
+  margin-bottom: 0.35rem;
+}
+
+.milestone p {
+  margin: 0;
+  font-size: 0.925rem;
+  color: var(--c-text-muted);
+}
+
+.milestone b {
+  color: var(--c-text-main);
+}
+
+/* ==========================================================================
+   ABOUT — MISSION & VISION
+   ========================================================================== */
+.mv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.mv-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 4vw, 3rem);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-xs);
+}
+
+.mv-card .card-icon {
+  margin-bottom: var(--space-4);
+}
+
+.mv-card h3 {
+  font-size: clamp(1.5rem, 1.4vw + 1rem, 2.1rem);
+  line-height: 1.2;
+  margin-bottom: var(--space-3);
+}
+
+.mv-card h3 .serif {
+  color: var(--c-primary);
+}
+
+.mv-card p {
+  color: var(--c-text-muted);
+}
+
+.mv-card.is-dark {
+  background: var(--c-ink);
+  border-color: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.mv-card.is-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(60% 70% at 100% 0%, rgba(14, 143, 91, 0.45), transparent 70%);
+}
+
+.mv-card.is-dark h3 { color: #fff; }
+.mv-card.is-dark h3 .serif { color: var(--c-primary-bright); }
+.mv-card.is-dark p { color: rgba(255, 255, 255, 0.72); }
+.mv-card.is-dark .eyebrow { color: var(--c-primary-bright); }
+
+.mv-card.is-dark .card-icon {
+  background: rgba(61, 220, 151, 0.14);
+  border-color: rgba(61, 220, 151, 0.25);
+  color: var(--c-primary-bright);
+}
+
+.values-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.value-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 0.85rem;
+  align-items: start;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+}
+
+.value-item b {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.value-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   ABOUT — COMMUNITY TRANSPORTATION GOALS
+   ========================================================================== */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.goal-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.goal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.goal-card .card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: var(--space-4);
+}
+
+.goal-card .card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.goal-target {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 1.5vw + 1.25rem, 2.6rem);
+  font-weight: var(--weight-h2);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.goal-card h4 {
+  font-size: 1.05rem;
+}
+
+.goal-card > p {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+.goal-progress {
+  margin-top: auto;
+  padding-top: var(--space-3);
+}
+
+.goal-bar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--c-surface-2);
+  overflow: hidden;
+}
+
+.goal-bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--c-primary), var(--c-primary-bright));
+}
+
+.goal-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+}
+
+.goal-meta b {
+  color: var(--c-text-main);
+}
+
+/* ==========================================================================
+   ABOUT — TEAM
+   ========================================================================== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.team-card {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-xs);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.team-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+.team-photo {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--c-surface-2);
+}
+
+.team-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-out);
+}
+
+.team-card:hover .team-photo img {
+  transform: scale(1.04);
+}
+
+.team-body {
+  padding: var(--space-4);
+}
+
+.team-body h4 {
+  margin-bottom: 0.15rem;
+}
+
+.team-role {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: var(--weight-label);
+  color: var(--c-primary);
+  margin-bottom: var(--space-2);
+}
+
+.team-body p {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+/* ==========================================================================
+   CONTACT — INFO CARDS
+   ========================================================================== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-xs);
+}
+
+.info-card .card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  margin-bottom: var(--space-3);
+}
+
+.info-card .card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.info-card h4 {
+  font-size: 1.05rem;
+  margin-bottom: 0.25rem;
+}
+
+.info-card p {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.info-value {
+  margin-top: auto;
+  font-weight: var(--weight-label);
+  color: var(--c-text-main);
+  overflow-wrap: anywhere;
+}
+
+a.info-value:hover {
+  color: var(--c-primary);
+}
+
+/* ==========================================================================
+   CONTACT — FORM + SUPPORT
+   ========================================================================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.contact-form-card {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-soft);
+}
+
+.contact-form-card > h2 {
+  font-size: clamp(1.75rem, 1.5vw + 1rem, 2.4rem);
+}
+
+.contact-form-card > p {
+  color: var(--c-text-muted);
+  margin-bottom: var(--space-5);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 var(--space-3);
+}
+
+.form-optional {
+  font-weight: 400;
+  color: var(--c-text-muted);
+}
+
+select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-inline-end: 2.75rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238F9C95' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+}
+
+html[dir="rtl"] select.form-control {
+  background-position: left 1rem center;
+}
+
+select.form-control option {
+  background: var(--c-surface);
+  color: var(--c-text-main);
+}
+
+textarea.form-control {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.contact-form .checkbox-group {
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+}
+
+.contact-form .btn[type="submit"] {
+  width: 100%;
+  justify-content: center;
+}
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-6) var(--space-3);
+}
+
+.form-success .card-icon {
+  margin: 0 auto var(--space-4);
+}
+
+.form-success p {
+  color: var(--c-text-muted);
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+.contact-form-card.is-sent .contact-form,
+.contact-form-card.is-sent > h2,
+.contact-form-card.is-sent > p {
+  display: none;
+}
+
+.contact-form-card.is-sent .form-success {
+  display: block;
+}
+
+/* Support aside */
+.support-aside {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.support-card {
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+}
+
+.support-card h3 {
+  font-size: 1.4rem;
+}
+
+.support-card > p {
+  font-size: 0.925rem;
+  color: var(--c-text-muted);
+}
+
+.support-list {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.support-list li {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.support-list b {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.support-list small {
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+}
+
+.support-time {
+  font-size: 0.75rem;
+  font-weight: var(--weight-label);
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--c-surface-2);
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+
+.support-alert {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 0.75rem;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--c-amber) 12%, var(--c-surface));
+  border: 1px solid color-mix(in srgb, var(--c-amber) 35%, transparent);
+  font-size: 0.9rem;
+}
+
+.support-alert svg {
+  width: 22px;
+  height: 22px;
+  color: #B7791F;
+}
+
+[data-theme="dark"] .support-alert svg { color: var(--c-amber); }
+
+.support-alert p {
+  margin: 0;
+  color: var(--c-text-muted);
+}
+
+.support-alert b {
+  color: var(--c-text-main);
+}
+
+/* ==========================================================================
+   CONTACT — SERVICE AREA
+   ========================================================================== */
+.area-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+.area-map {
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--c-border);
+  background: var(--map-land);
+  box-shadow: var(--shadow-soft);
+}
+
+.area-map > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.zone {
+  fill: color-mix(in srgb, var(--c-primary) 16%, transparent);
+  stroke: var(--c-primary);
+  stroke-width: 2;
+  stroke-dasharray: 6 6;
+}
+
+.zone.is-new {
+  fill: color-mix(in srgb, var(--c-amber) 20%, transparent);
+  stroke: var(--c-amber);
+}
+
+.area-map .map-label {
+  font-weight: 600;
+  color: var(--c-text-main);
+  opacity: 0.8;
+}
+
+.area-legend {
+  position: absolute;
+  z-index: 2;
+  inset-inline-start: var(--space-3);
+  bottom: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--c-surface) 90%, transparent);
+  border: 1px solid var(--c-border);
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+}
+
+.area-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.area-legend i {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 2px dashed;
+}
+
+.area-panel {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  border-radius: var(--radius-xl);
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+}
+
+.area-panel h3 {
+  font-size: 1.4rem;
+}
+
+.area-panel > p {
+  font-size: 0.925rem;
+  color: var(--c-text-muted);
+}
+
+.zone-list {
+  display: grid;
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.zone-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--c-border);
+}
+
+.zone-list li:last-child {
+  border-bottom: 0;
+}
+
+.zone-list b {
+  display: block;
+  font-size: 0.95rem;
+}
+
+.zone-list small {
+  font-size: 0.82rem;
+  color: var(--c-text-muted);
+}
+
+.area-panel .btn {
+  margin-top: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1100px) {
+  .goals-grid,
+  .team-grid,
+  .info-grid,
+  .values-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 960px) {
+  .story-grid,
+  .contact-grid,
+  .area-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-grid .media-frame {
+    aspect-ratio: 16 / 11;
+  }
+}
+
+@media (max-width: 768px) {
+  .mv-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mv-card {
+    border-radius: var(--radius-lg);
+  }
+
+  .area-map {
+    min-height: 380px;
+    border-radius: var(--radius-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .goals-grid,
+  .info-grid,
+  .values-row,
+  .milestones,
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+  }
+
+  .team-body {
+    padding: var(--space-3);
+  }
+
+  .team-body p {
+    display: none;
+  }
+
+  .story-grid .media-frame {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (max-width: 400px) {
+  .support-list li {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .support-time {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+.area-map .map-label:not(.is-water) {
+  transform: translate(-50%, -50%);
+}
+
+/* Team: three cards */
+.team-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1040px;
+  margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+  .team-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .team-card:last-child { grid-column: 1 / -1; max-width: calc(50% - var(--space-3) / 2); justify-self: center; width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .team-grid { grid-template-columns: 1fr; gap: var(--space-3); max-width: 420px; }
+  .team-card:last-child { grid-column: auto; max-width: none; }
+  .team-body p { display: block; }
+}
+
+.team-body { text-align: center; }
+
+/* Our Story: center copy + milestones once the layout stacks */
+@media (max-width: 960px) {
+  .story-copy { text-align: center; }
+
+  .milestone {
+    text-align: center;
+    border-inline-start: 1px solid var(--c-border);
+    border-top: 3px solid var(--c-primary);
+  }
+}
+
+/* Our Story at tablet/mobile: centered text first, image below */
+@media (max-width: 768px) {
+  .story-grid .story-copy,
+  .story-grid .story-copy h2,
+  .story-grid .story-copy p {
+    text-align: center;
+  }
+
+  .story-grid .story-copy { order: -1; }
+
+  .story-grid .milestone {
+    text-align: center;
+    border-inline-start: 1px solid var(--c-border);
+    border-top: 3px solid var(--c-primary);
+  }
+}
+
+/* ==========================================================================
+   ABOUT — HOVER EFFECTS (story, milestones, mission/vision, values)
+   ========================================================================== */
+.story-grid .media-frame img {
+  transition: transform 1s var(--ease-out);
+}
+
+.story-grid .media-frame:hover img {
+  transform: scale(1.05);
+}
+
+.milestone,
+.mv-card,
+.value-item {
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s, background-color 0.3s;
+}
+
+.milestone:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--c-border-strong);
+  border-inline-start-color: var(--c-primary);
+}
+
+.milestone-year {
+  transition: transform 0.4s var(--ease-out);
+  transform-origin: left center;
+}
+
+html[dir="rtl"] .milestone-year { transform-origin: right center; }
+
+.milestone:hover .milestone-year {
+  transform: scale(1.08);
+}
+
+.mv-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--c-border-strong);
+}
+
+.mv-card.is-dark:hover {
+  border-color: rgba(61, 220, 151, 0.3);
+}
+
+.mv-card .card-icon,
+.value-item .li-icon {
+  transition: transform 0.4s var(--ease-out), background-color 0.3s, color 0.3s;
+}
+
+.mv-card:hover .card-icon {
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.value-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: color-mix(in srgb, var(--c-primary) 35%, transparent);
+}
+
+.value-item:hover .li-icon {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  transform: scale(1.06);
+}
+
+@media (max-width: 960px) {
+  .milestone:hover { border-top-color: var(--c-primary); }
+  .milestone-year { transform-origin: center; }
+}
+
+@media (hover: none) {
+  .milestone:hover,
+  .mv-card:hover,
+  .value-item:hover { transform: none; }
+}
+
+/* Contact: social links inside the "Follow us" info card */
+.info-social {
+  margin-top: auto;
+}
+
+.info-social a:hover {
+  background-color: var(--c-primary);
+  border-color: var(--c-primary);
+  color: var(--c-on-primary);
+}
+
+/* Service area panel: row hover */
+.area-panel {
+  transition: box-shadow 0.4s var(--ease-out), border-color 0.3s;
+}
+
+.area-panel:hover {
+  box-shadow: var(--shadow-soft);
+  border-color: var(--c-border-strong);
+}
+
+.zone-list li {
+  margin-inline: calc(var(--space-3) * -1);
+  padding-inline: var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background-color 0.25s, transform 0.3s var(--ease-out);
+}
+
+.zone-list li:hover {
+  background: var(--c-surface-2);
+  transform: translateX(4px);
+}
+
+html[dir="rtl"] .zone-list li:hover { transform: translateX(-4px); }
+
+.zone-list li b { transition: color 0.25s; }
+.zone-list li:hover b { color: var(--c-primary); }
+
+.zone-list .status-badge { transition: transform 0.3s var(--ease-out); }
+.zone-list li:hover .status-badge { transform: scale(1.06); }

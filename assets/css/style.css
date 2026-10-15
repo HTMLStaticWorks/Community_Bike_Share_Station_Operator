@@ -1290,3 +1290,96 @@ body.auth-page {
     inset-inline-end: var(--space-3);
   }
 }
+
+/* Eight nav links: tighten pills on small desktops, switch to the drawer below 1200px */
+@media (max-width: 1320px) {
+  .nav-menu .nav-link { padding: 0.45rem 0.75rem; }
+}
+
+@media (max-width: 1200px) {
+  .nav-menu { display: none; }
+
+  .navbar .nav-actions .theme-toggle,
+  .navbar .nav-actions .nav-login-link,
+  .navbar .nav-actions .rtl-toggle {
+    display: none;
+  }
+
+  .hamburger { display: flex; }
+}
+
+/* ==========================================================================
+   PHOTO HEROES (how it works, station map, pricing, about, contact)
+   One shared height, a page-specific photo and a dark overlay for legibility
+   ========================================================================== */
+section.hero-photo {
+  min-height: clamp(560px, 78vh, 720px);
+  display: flex;
+  align-items: center;
+  padding: calc(var(--nav-height) + var(--space-6)) 0 var(--space-8);
+  color: #fff;
+  background: var(--c-ink);
+}
+
+.hero-photo > .container { width: 100%; }
+
+.page-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+section.hero-photo::before {
+  z-index: -2;
+  background:
+    radial-gradient(60% 70% at 50% 45%, rgba(7, 11, 9, 0.55), rgba(7, 11, 9, 0.82) 100%),
+    linear-gradient(180deg, rgba(7, 11, 9, 0.55), rgba(7, 11, 9, 0.35) 40%, rgba(7, 11, 9, 0.85));
+}
+
+section.hero-photo::after {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+.hero-photo h1 { color: #fff; }
+.hero-photo h1 .serif { color: var(--c-primary-bright); }
+.hero-photo .lead { color: rgba(255, 255, 255, 0.8); }
+
+.hero-photo .page-hero-pill,
+.hero-photo .sm-hero-pill {
+  background: rgba(16, 24, 21, 0.55);
+  border-color: rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.hero-photo .page-hero-pill b,
+.hero-photo .sm-hero-pill b { color: #fff; }
+
+.hero-photo .page-hero-pill svg { color: var(--c-primary-bright); }
+.hero-photo .sm-hero-pill .live-dot { background: var(--c-primary-bright); }
+
+/* Station map extras on the photo */
+.hero-photo .sm-hoods { color: rgba(255, 255, 255, 0.75); }
+
+.hero-photo .sm-hoods .chip {
+  background: rgba(16, 24, 21, 0.5);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.hero-photo .sm-hoods .chip:hover { border-color: #fff; }
+
+@media (max-width: 768px) {
+  section.hero-photo {
+    min-height: clamp(480px, 72vh, 600px);
+    padding: calc(var(--nav-height) + var(--space-5)) 0 var(--space-6);
+  }
+}

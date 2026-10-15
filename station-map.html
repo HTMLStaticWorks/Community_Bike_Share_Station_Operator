@@ -31,6 +31,8 @@
         <a href="how-it-works.html" class="nav-link">How It Works</a>
         <a href="station-map.html" class="nav-link active">Station Map</a>
         <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
         <a href="dashboard.html" class="nav-link">Dashboard</a>
       </nav>
 
@@ -57,6 +59,8 @@
       <a href="how-it-works.html" class="nav-link">How It Works</a>
       <a href="station-map.html" class="nav-link active">Station Map</a>
       <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
       <a href="dashboard.html" class="nav-link">Dashboard</a>
     </nav>
     <div class="drawer-actions">
@@ -70,7 +74,8 @@
   <main>
 
     <!-- PAGE HERO -->
-    <section class="sm-hero">
+    <section class="sm-hero hero-photo">
+      <img class="page-hero-bg" src="assets/images/hero-station-map.jpg" alt="">
       <div class="container">
         <div class="animate-fade-up">
           <div class="sm-hero-pill"><span class="live-dot"></span> <span><b id="heroBikes">0</b> bikes ready across the
@@ -94,7 +99,12 @@
             <button type="button" class="chip" data-hood="East Village">East Village</button>
           </div>
         </div>
+      </div>
+    </section>
 
+    <!-- LIVE NETWORK STATS -->
+    <section class="sm-stats">
+      <div class="container">
         <div class="stats-band animate-fade-up delay-100">
           <div>
             <div class="bento-stat"><span class="sm-stat-icon"><i data-lucide="map-pin"></i></span><span
@@ -283,16 +293,42 @@
     <!-- CTA BANNER -->
     <section class="section" style="padding-top: 0;">
       <div class="container">
-        <div class="cta-photo animate-fade-up">
-          <img src="assets/images/cta-photo-bike-ready-street.jpg" alt="" loading="lazy">
-          <span class="eyebrow" style="color: var(--c-primary-bright);">Ready when you are</span>
-          <h2>Found your station? <span class="serif hl-accent">Start riding.</span></h2>
-          <p class="lead">Create a free account in under a minute and unlock any bike on the map. Your first ride is on
-            us.</p>
-          <div class="cta-actions">
-            <a href="register.html" class="btn btn-primary btn-lg">Create Free Account <i data-lucide="arrow-right"
-                class="btn-arrow"></i></a>
-            <a href="pricing.html" class="btn btn-glass btn-lg">Compare Plans</a>
+        <div class="cta-reserve animate-fade-up">
+          <div class="cta-reserve-media">
+            <img src="assets/images/cta-photo-bike-ready-street.jpg" alt="CycleFlow bike ready at a city station"
+              loading="lazy">
+            <div class="reserve-ticket glass">
+              <div class="reserve-ticket-top">
+                <div>
+                  <small>Bike held at</small>
+                  <b>Union Square · Dock 07</b>
+                </div>
+                <span class="reserve-timer">06:24</span>
+              </div>
+              <div class="reserve-bar"><i></i></div>
+            </div>
+          </div>
+
+          <div class="cta-reserve-copy">
+            <span class="eyebrow">Found your station?</span>
+            <h2>Hold a bike <span class="serif">before</span> you walk over.</h2>
+            <p class="lead">Members can reserve any bike on the map for 10 minutes, so it's waiting at the dock when
+              you arrive.</p>
+            <ul class="cta-reserve-list">
+              <li>
+                <span class="li-icon"><i data-lucide="timer"></i></span>
+                <div><b>Free 10-minute holds</b><small>Reserve straight from the station card.</small></div>
+              </li>
+              <li>
+                <span class="li-icon"><i data-lucide="bell-ring"></i></span>
+                <div><b>Dock alerts</b><small>Get pinged when a full station opens up.</small></div>
+              </li>
+            </ul>
+            <div class="cta-actions">
+              <a href="register.html" class="btn btn-primary btn-lg">Sign Up to Reserve <i data-lucide="arrow-right"
+                  class="btn-arrow"></i></a>
+              <a href="login.html" class="btn btn-outline btn-lg">I Have an Account</a>
+            </div>
           </div>
         </div>
       </div>
@@ -320,6 +356,8 @@
             <a href="how-it-works.html">How It Works</a>
             <a href="station-map.html">Station Map</a>
             <a href="pricing.html">Pricing Plans</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
           </div>
         </div>
 

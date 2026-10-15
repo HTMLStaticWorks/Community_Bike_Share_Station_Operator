@@ -35,6 +35,8 @@
         <a href="how-it-works.html" class="nav-link">How It Works</a>
         <a href="station-map.html" class="nav-link">Station Map</a>
         <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
         <a href="dashboard.html" class="nav-link">Dashboard</a>
       </nav>
 
@@ -75,6 +77,8 @@
       <a href="how-it-works.html" class="nav-link">How It Works</a>
       <a href="station-map.html" class="nav-link">Station Map</a>
       <a href="pricing.html" class="nav-link">Pricing</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
       <a href="dashboard.html" class="nav-link">Dashboard</a>
     </nav>
     <div class="drawer-actions">
@@ -456,15 +460,31 @@
     <!-- FULL WIDTH CTA -->
     <section class="section">
       <div class="container">
-        <div class="cta-photo animate-fade-up">
-          <img src="assets/images/cta-photo-unlock-city-cyclist-02.jpg" alt="" loading="lazy">
-          <span class="eyebrow" style="color: var(--c-primary-bright);">Ready to roll?</span>
-          <h2>Your first ride is <span class="serif hl-accent">on us.</span></h2>
-          <p class="lead">Sign up in under a minute and unlock any bike in the network today.</p>
-          <div class="cta-actions">
-            <a href="register.html" class="btn btn-primary btn-lg">Create Account <i data-lucide="arrow-right"
-                class="btn-arrow"></i></a>
-            <a href="pricing.html" class="btn btn-glass btn-lg">Compare Plans</a>
+        <div class="cta-signup animate-fade-up">
+          <div class="cta-signup-media">
+            <img src="assets/images/cta-photo-unlock-city-cyclist-02.jpg" alt="Cyclist unlocking a CycleFlow bike"
+              loading="lazy">          </div>
+
+          <div class="cta-signup-copy">
+            <span class="eyebrow">Ready to roll?</span>
+            <h2>Your first ride is <span class="serif">on us.</span></h2>
+            <p class="lead">Drop your email to claim a free ride. We'll set up your account and send a quick-start
+              guide to the stations nearest you.</p>
+
+            <form action="register.html" method="get" class="cta-email">
+              <i data-lucide="mail"></i>
+              <input type="email" name="email" placeholder="you@example.com" aria-label="Email address" required>
+              <button type="submit" class="btn btn-primary"><i data-lucide="sparkles"></i> <span>Claim Free
+                  Ride</span></button>
+            </form>
+
+            <div class="cta-perks">
+              <span><i data-lucide="circle-check"></i> No credit card to start</span>
+              <span><i data-lucide="circle-check"></i> Cancel anytime</span>
+              <span><i data-lucide="circle-check"></i> 200+ stations</span>
+            </div>
+
+            <p class="cta-note">Already riding with us? <a href="login.html">Log in to your dashboard</a></p>
           </div>
         </div>
       </div>
@@ -492,6 +512,8 @@
             <a href="how-it-works.html">How It Works</a>
             <a href="station-map.html">Station Map</a>
             <a href="pricing.html">Pricing Plans</a>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
           </div>
         </div>
 
